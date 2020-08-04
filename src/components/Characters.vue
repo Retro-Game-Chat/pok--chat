@@ -1,9 +1,12 @@
 <template>
   <div>
-    <Character
+    <!-- <Character
       v-for="(character, index) in characters"
       :key="index"
       :character="character"
+    /> -->
+    <Character
+      :character="me"
     />
   </div>
 </template>
@@ -22,7 +25,17 @@ export default {
     characters: {
       type: Array,
       default: () => ([])
+    },
+    me: {
+      type: Object,
+      required: true
     }
   },
+
+  watch: { 
+    me: function(newVal, oldVal) {
+      console.log('Prop changed: ', newVal, ' | was: ', oldVal)
+    }
+  }
 }
 </script>

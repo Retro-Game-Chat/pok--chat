@@ -3,7 +3,7 @@
     <div class="PlayBox"
     :style="{ backgroundImage: `url(${require(`@/assets/images/${location}.png`)})` }"
     >
-      <Characters :characters="characters" />
+      <Characters :characters="characters" :me="me" />
     </div>
   </div>
 </template>
@@ -19,26 +19,24 @@ export default {
   },
 
   data () {
-    const everyone = [
-      {
-        name: 'greg',
-        color: 'blue',
-        x: 0,
-        y: 0
-      }
-    ]
-
-    const me = {
-      name: 'luke',
-      color: 'red',
-      x: 0,
-      y: 0
-    }
-
     return {
       location: 'route11',
-      me,
-      characters: [ ...everyone, me ]
+      me: {
+        name: 'luke',
+        color: 'red',
+        direction: 'down',
+        x: 0,
+        y: 0
+      },
+      characters: [
+        {
+          name: 'greg',
+          color: 'blue',
+          direction: 'down',
+          x: 0,
+          y: 0
+        }
+      ]
     }
   },
 
@@ -50,25 +48,25 @@ export default {
     listenKeysPressed(e) {
       const keys = {
         38: {
-          name: 'UP',
+          name: 'up',
           do: (character) => {
             character.y += 1
           }
         },
         40: {
-          name: 'DOWN',
+          name: 'down',
           do: (character) => {
             character.y -= 1
           }
         },
         37: {
-          name: 'LEFT',
+          name: 'left',
           do: (character) => {
             character.x -= 1
           }
         },
         39: {
-          name: 'RIGHT',
+          name: 'right',
           do: (character) => {
             character.x += 1
           }
@@ -78,7 +76,8 @@ export default {
       const action = keys[e.which]
 
       if (action) {
-        console.log(action.name)
+        this.me.direction = action.name
+        console.log(this.me, action.name)
       }
     },
   }

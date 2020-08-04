@@ -1,10 +1,10 @@
 <template>
   <div 
     class="Character"
+    :class="`Character--${character.direction || 'down'}`"
     :style="{
       left: x + 'rem',
-      top: y + 'rem',
-      backgroundImage: `url(${require(`@/assets/images/overworld.png`)})`
+      top: y + 'rem'
     }"
   />
 </template>
@@ -26,11 +26,34 @@ export default {
       required: true
     }
   },
+
+  watch: { 
+    character: function(newVal, oldVal) {
+      console.log('Prop changed: ', newVal, ' | was: ', oldVal)
+    }
+  }
 }
 </script>
 
 <style scoped>
 .Character {
   @apply absolute h-4 w-4;
+}
+
+.Character--down {
+  background: no-repeat url('~@/assets/images/overworld.png') 0rem 0rem;
+}
+
+.Character--up {
+  background: no-repeat url('~@/assets/images/overworld.png') -1rem 0rem;
+}
+
+.Character--left {
+  background: no-repeat url('~@/assets/images/overworld.png') -2rem 0rem;
+}
+
+.Character--right {
+  background: no-repeat url('~@/assets/images/overworld.png') -2rem 0rem;
+  transform: scaleX(-1);
 }
 </style>
