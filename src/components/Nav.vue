@@ -1,8 +1,8 @@
 <template>
   <nav class="Nav">
-    <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
+    <div class="Nav__download">
       <div>
-        <a href="#" class="Nav__download">Download</a>
+        <a href="#" class="Nav__download--link">Download</a>
       </div>
     </div>
   </nav>
@@ -19,6 +19,18 @@ export default {
   @apply flex items-center justify-between flex-wrap bg-teal-500 p-6;
 }
 .Nav__download {
-  @apply inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0;
+  @apply w-full block flex-grow
+}
+.Nav__download:lg {
+  @apply flex items-center w-auto
+}
+.Nav__download--link {
+  @apply inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white mt-4;
+}
+.Nav__download--link:hover {
+  @apply border-transparent text-teal-500 bg-white;
+}
+.Nav__download--link:lg {
+  @apply mt-0;
 }
 </style>
