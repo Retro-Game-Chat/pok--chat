@@ -3,19 +3,19 @@
     <div class="PlayBox"
     :style="{ backgroundImage: `url(${require(`@/assets/images/${location}.png`)})` }"
     >
-      <PlayArea :characters="characters" />
+      <Characters :characters="characters" />
     </div>
   </div>
 </template>
 
 <script>
-import PlayArea from './PlayArea'
+import Characters from './Characters'
 
 export default {
   name: 'PlaySpace',
 
   components: {
-    PlayArea
+    Characters
   },
 
   data () {

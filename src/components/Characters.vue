@@ -1,5 +1,5 @@
 <template>
-  <div class="PlayArea">
+  <div>
     <Character
       v-for="(character, index) in characters"
       :key="index"
@@ -12,7 +12,7 @@
 import Character from './Character.vue'
 
 export default {
-  name: 'PlayArea',
+  name: 'Characters',
 
   components: {
     Character
