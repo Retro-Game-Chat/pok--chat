@@ -1,40 +1,69 @@
 <template>
   <div class="PlayBox">
-    <div class="PlayArea">
-      <Character  id="paddle" :style="{
-                        left: xPos + 'px',
-                        top: yPos + 'px',
-                    }" />
-    </div>
+    <PlayArea :characters="characters" />
   </div>
 </template>
 
 <script>
-import KEYS from "./../config/keys.js";
-import Character from './Character.vue';
+import PlayArea from './PlayArea'
+
 export default {
   name: 'PlaySpace',
+
   components: {
-    Character
+    PlayArea
   },
+
   data () {
     return {
-      xPos: 0,
-      yPos: 0
+      characters: [
+        {
+          name: 'my name',
+          color: 'red',
+          x: 0,
+          y: 0
+        }
+      ]
     }
   },
-  created() {
-    window.addEventListener("keydown", this.listenKeysPressed);
-  },
-  methods: {
-    move() {
 
-    },
+  created() {
+    window.addEventListener('keyup', this.listenKeysPressed)
+  },
+
+  methods: {
     listenKeysPressed(e) {
-      if (e.which === KEYS.RIGHT) {
-        console.log(e.which);
-        this.move(e.which);
-        this.xPos = this.xPos + 20;
+      const keys = {
+        38: {
+          name: 'UP',
+          do: (character) => {
+            character.y += 20
+          }
+        },
+        40: {
+          name: 'DOWN',
+          do: (character) => {
+            character.y -= 20
+          }
+        },
+        37: {
+          name: 'LEFT',
+          do: (character) => {
+            character.x -= 20
+          }
+        },
+        39: {
+          name: 'RIGHT',
+          do: (character) => {
+            character.x += 20
+          }
+        }
+      }
+
+      const action = keys[e.which]
+
+      if (action) {
+        console.log(action.name)
       }
     },
   }
@@ -48,17 +77,5 @@ export default {
 
 .PlayArea {
   @apply h-full w-full bg-gray-400;
-}
-
-
-#paddle {
-    position: absolute;
-    left: 10px;
-    top: 500px;
-    width: 20px;
-    height: 20px;
-    margin: 0.5px;
-    background: #000000;
-    border-radius: 2px;
 }
 </style>
