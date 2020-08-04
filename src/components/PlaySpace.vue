@@ -97,6 +97,7 @@ export default {
 }
 
 .PlayBox {
+  zoom: 150%;
   width: 40rem;
   height: 18rem;
   @apply relative border border-black;
