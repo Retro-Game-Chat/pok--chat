@@ -4,6 +4,7 @@
     :style="{
       left: x + 'rem',
       top: y + 'rem',
+      backgroundImage: `url(${require(`@/assets/images/overworld.png`)})`
     }"
   />
 </template>
@@ -30,6 +31,6 @@ export default {
 
 <style scoped>
 .Character {
-  @apply absolute h-4 w-4 border border-gray-400 bg-gray-600;
+  @apply absolute h-4 w-4;
 }
 </style>
