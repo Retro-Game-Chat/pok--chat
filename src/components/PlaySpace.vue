@@ -17,25 +17,33 @@ const keys = {
   38: {
     name: 'up',
     do: (character) => {
-      character.y -= 1
+      if (character.y > 0) {
+        character.y -= 1
+      }
     }
   },
   40: {
     name: 'down',
     do: (character) => {
-      character.y += 1
+      if (character.y < 17) {
+        character.y += 1
+      }
     }
   },
   37: {
     name: 'left',
     do: (character) => {
-      character.x -= 1
+      if (character.x !== 0) {
+        character.x -= 1
+      }
     }
   },
   39: {
     name: 'right',
     do: (character) => {
-      character.x += 1
+      if (character.x < 39) {
+        character.x += 1
+      }
     }
   }
 }
