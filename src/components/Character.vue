@@ -53,7 +53,6 @@ export default {
 
 .Character--down.Character--moving {
   background: no-repeat url('~@/assets/images/overworld.png') -3rem 0rem;
-  animation: movingUpDown 1s linear infinite; 
 }
 
 .Character--up {
@@ -62,7 +61,6 @@ export default {
 
 .Character--up.Character--moving {
   background: no-repeat url('~@/assets/images/overworld.png') -4rem 0rem;
-  animation: movingUpDown 1s linear infinite;
 }
 
 .Character--left {
@@ -70,7 +68,7 @@ export default {
 }
 
 .Character--left.Character--moving {
-  animation: movingLeft 1s steps(1, start) infinite; 
+  background: no-repeat url('~@/assets/images/overworld.png') -5rem 0rem;
 }
 
 .Character--right {
@@ -78,21 +76,8 @@ export default {
   transform: scaleX(-1);
 }
 
-/* .Character--right.Character--moving {
-  background: no-repeat url('~@/assets/images/overworld.png') -2rem 0rem;
-  animation: movingRight 1s linear infinite; 
-} */
-
-@keyframes movingUpDown {
-  49.999% { transform: scaleX(1); }
-  50% { transform: scaleX(-1); }
-  100% { transform: scaleX(-1); }
-}
-
-@keyframes movingLeft {
-  0% { background-position-x: -5rem; }
-  49.999% { background-position-x: -2rem; }
-  50% { background-position-x: -5rem; }
-  100% { background-position-x: -2rem; }
+.Character--right.Character--moving {
+  background: no-repeat url('~@/assets/images/overworld.png') -5rem 0rem;
+  transform: scaleX(-1);
 }
 </style>
