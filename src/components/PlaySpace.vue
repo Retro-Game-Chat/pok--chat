@@ -3,6 +3,7 @@
     <div class="PlayBox"
     :style="{ backgroundImage: `url(${require(`@/assets/images/${location}.png`)})` }"
     >
+      <TitleBox />
       <Characters :characters="characters" :me="me" />
       <ChatBox />
     </div>
@@ -12,6 +13,7 @@
 <script>
 import Characters from './Characters'
 import ChatBox from './ChatBox'
+import TitleBox from './TitleBox'
 
 const keys = {
   38: {
@@ -53,7 +55,8 @@ export default {
 
   components: {
     Characters,
-    ChatBox
+    ChatBox,
+    TitleBox
   },
 
   data () {
@@ -111,6 +114,6 @@ export default {
   zoom: 150%;
   width: 40rem;
   height: 18rem;
-  @apply relative border border-black flex justify-center items-center;
+  @apply mt-20 relative border border-black flex justify-center items-center;
 }
 </style>

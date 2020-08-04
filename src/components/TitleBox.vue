@@ -1,16 +1,10 @@
 <template>
-  <div class="box">
-    <ul>
-      <li>
-        Luke: Hey there!
-      </li>
-    </ul>
-  </div>
+  <div class="box">Welcome to Route 11 chat!</div>
 </template>
 
 <script>
 export default {
-  name: 'ChatBox'
+  name: 'TitleBox'
 }
 </script>
 
@@ -23,15 +17,15 @@ export default {
 }
 
 .box {
-  bottom: -7.8rem;
+  top: -1.8rem;
   position: absolute;
   font-size: 0.5rem;
   font-family: "Pokemon GB", Arial, sans-serif;
   border-radius: 0.125rem;
   padding: 0.5rem;
 
-  width: 38rem;
-  height: 8rem;
+  width: 16rem;
+  height: 2rem;
   line-height: 1rem;
   margin: auto;
   background: white;
