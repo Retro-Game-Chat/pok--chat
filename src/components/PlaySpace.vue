@@ -4,12 +4,14 @@
     :style="{ backgroundImage: `url(${require(`@/assets/images/${location}.png`)})` }"
     >
       <Characters :characters="characters" :me="me" />
+      <ChatBox />
     </div>
   </div>
 </template>
 
 <script>
 import Characters from './Characters'
+import ChatBox from './ChatBox'
 
 const keys = {
   38: {
@@ -42,7 +44,8 @@ export default {
   name: 'PlaySpace',
 
   components: {
-    Characters
+    Characters,
+    ChatBox
   },
 
   data () {
@@ -100,6 +103,6 @@ export default {
   zoom: 150%;
   width: 40rem;
   height: 18rem;
-  @apply relative border border-black;
+  @apply relative border border-black flex justify-center items-center;
 }
 </style>
