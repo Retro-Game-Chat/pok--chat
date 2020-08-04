@@ -3,8 +3,8 @@
     class="Character"
     :class="[`Character--${character.direction || 'down'}`, { 'Character--moving' : moving } ]"
     :style="{
-      left: x + 'rem',
-      top: y + 'rem'
+      left: (character.x || 20) + 'rem',
+      top: (character.y || 9) + 'rem'
     }"
   />
 </template>
@@ -15,9 +15,7 @@ export default {
 
   data() {
     return {
-      moving: false,
-      x: this.character.x > 0 ? this.character.x > 0 : 20,
-      y: this.character.y > 0 ? this.character.y > 0 : 9
+      moving: false
     }
   },
 

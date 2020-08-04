@@ -52,16 +52,16 @@ export default {
         name: 'luke',
         color: 'red',
         direction: 'down',
-        x: 0,
-        y: 0
+        x: null,
+        y: null
       },
       characters: [
         {
           name: 'greg',
           color: 'blue',
           direction: 'down',
-          x: 0,
-          y: 0
+          x: null,
+          y: null
         }
       ]
     }
