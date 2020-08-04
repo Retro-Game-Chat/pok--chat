@@ -1,11 +1,23 @@
 <template>
-  <div class="Character">
-  </div>
+  <div 
+    class="Character"
+    :style="{
+      left: x + 'rem',
+      top: y + 'rem',
+    }"
+  />
 </template>
 
 <script>
 export default {
   name: 'Character',
+
+  data() {
+    return {
+      x: this.character.x > 0 ? this.character.x > 0 : 20,
+      y: this.character.y > 0 ? this.character.y > 0 : 9
+    }
+  },
 
   props: {
     character: {
@@ -18,11 +30,6 @@ export default {
 
 <style scoped>
 .Character {
-  width: 20px;
-  height: 20px;
-  float: left;
-  margin: 0.5px;
-  background: #000000;
-  border-radius: 2px;
+  @apply absolute h-4 w-4 border border-gray-400 bg-gray-600;
 }
 </style>

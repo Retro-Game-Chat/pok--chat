@@ -17,3 +17,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+#app {
+  @apply h-full;
+}
+</style>

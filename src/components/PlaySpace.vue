@@ -1,6 +1,10 @@
 <template>
-  <div class="PlayBox">
-    <PlayArea :characters="characters" />
+  <div class="PlaySpace">
+    <div class="PlayBox"
+    :style="{ backgroundImage: `url(${require(`@/assets/images/${location}.png`)})` }"
+    >
+      <PlayArea :characters="characters" />
+    </div>
   </div>
 </template>
 
@@ -15,15 +19,26 @@ export default {
   },
 
   data () {
+    const everyone = [
+      {
+        name: 'greg',
+        color: 'blue',
+        x: 0,
+        y: 0
+      }
+    ]
+
+    const me = {
+      name: 'luke',
+      color: 'red',
+      x: 0,
+      y: 0
+    }
+
     return {
-      characters: [
-        {
-          name: 'my name',
-          color: 'red',
-          x: 0,
-          y: 0
-        }
-      ]
+      location: 'route11',
+      me,
+      characters: [ ...everyone, me ]
     }
   },
 
@@ -37,25 +52,25 @@ export default {
         38: {
           name: 'UP',
           do: (character) => {
-            character.y += 20
+            character.y += 1
           }
         },
         40: {
           name: 'DOWN',
           do: (character) => {
-            character.y -= 20
+            character.y -= 1
           }
         },
         37: {
           name: 'LEFT',
           do: (character) => {
-            character.x -= 20
+            character.x -= 1
           }
         },
         39: {
           name: 'RIGHT',
           do: (character) => {
-            character.x += 20
+            character.x += 1
           }
         }
       }
@@ -71,11 +86,13 @@ export default {
 </script>
 
 <style scoped>
-.PlayBox {
-  @apply box-content h-32 w-64 p-4 border-4 border-gray-400 bg-gray-200;
+.PlaySpace {
+  @apply flex w-full h-full justify-center items-center;
 }
 
-.PlayArea {
-  @apply h-full w-full bg-gray-400;
+.PlayBox {
+  width: 40rem;
+  height: 18rem;
+  @apply relative border border-black;
 }
 </style>
