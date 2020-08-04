@@ -15,13 +15,13 @@ const keys = {
   38: {
     name: 'up',
     do: (character) => {
-      character.y += 1
+      character.y -= 1
     }
   },
   40: {
     name: 'down',
     do: (character) => {
-      character.y -= 1
+      character.y += 1
     }
   },
   37: {
@@ -52,16 +52,16 @@ export default {
         name: 'luke',
         color: 'red',
         direction: 'down',
-        x: null,
-        y: null
+        x: 20,
+        y: 9
       },
       characters: [
         {
           name: 'greg',
           color: 'blue',
           direction: 'down',
-          x: null,
-          y: null
+          x: 20,
+          y: 9
         }
       ]
     }
@@ -77,7 +77,7 @@ export default {
       const action = keys[e.which]
 
       if (action) {
-        // action.do(this.me)
+        action.do(this.me)
       }
     },
     listenLook(e) {
