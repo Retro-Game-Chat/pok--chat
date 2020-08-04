@@ -11,6 +11,33 @@
 <script>
 import Characters from './Characters'
 
+const keys = {
+  38: {
+    name: 'up',
+    do: (character) => {
+      character.y += 1
+    }
+  },
+  40: {
+    name: 'down',
+    do: (character) => {
+      character.y -= 1
+    }
+  },
+  37: {
+    name: 'left',
+    do: (character) => {
+      character.x -= 1
+    }
+  },
+  39: {
+    name: 'right',
+    do: (character) => {
+      character.x += 1
+    }
+  }
+}
+
 export default {
   name: 'PlaySpace',
 
@@ -41,43 +68,23 @@ export default {
   },
 
   created() {
-    window.addEventListener('keyup', this.listenKeysPressed)
+    window.addEventListener('keydown', this.listenLook)
+    window.addEventListener('keyup', this.listenMove)
   },
 
   methods: {
-    listenKeysPressed(e) {
-      const keys = {
-        38: {
-          name: 'up',
-          do: (character) => {
-            character.y += 1
-          }
-        },
-        40: {
-          name: 'down',
-          do: (character) => {
-            character.y -= 1
-          }
-        },
-        37: {
-          name: 'left',
-          do: (character) => {
-            character.x -= 1
-          }
-        },
-        39: {
-          name: 'right',
-          do: (character) => {
-            character.x += 1
-          }
-        }
-      }
+    listenMove(e) {
+      const action = keys[e.which]
 
+      if (action) {
+        // action.do(this.me)
+      }
+    },
+    listenLook(e) {
       const action = keys[e.which]
 
       if (action) {
         this.me.direction = action.name
-        console.log(this.me, action.name)
       }
     },
   }

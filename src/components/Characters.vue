@@ -30,12 +30,6 @@ export default {
       type: Object,
       required: true
     }
-  },
-
-  watch: { 
-    me: function(newVal, oldVal) {
-      console.log('Prop changed: ', newVal, ' | was: ', oldVal)
-    }
   }
 }
 </script>
