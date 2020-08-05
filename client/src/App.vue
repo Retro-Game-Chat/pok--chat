@@ -1,47 +1,28 @@
 <template>
   <div id="app">
-    <!-- <Nav class="mb-6" /> -->
-    <PlaySpace v-if="!!server.status && server.status === 'ok'" />
-    <template v-else>
-      <Connecting message="Connecting..."/>
-    </template>
+    <router-view/>
   </div>
 </template>
 
-<script>
-import Connecting from '@/components/Connecting.vue'
-import PlaySpace from '@/components/PlaySpace.vue'
-import ServerService from '@/services/Server'
-// import Nav from './components/Nav.vue'
-
-export default {
-  name: 'App',
-  components: {
-    PlaySpace,
-    Connecting,
-    // Nav
-  },
-  data () {
-    return {
-      server: {},
-    }
-  },
-  mounted () {
-    this.getServerStatus()
-  },
-  methods: {
-    getServerStatus () {
-      ServerService.fetchStatus()
-        .then((response) => {
-          this.server = response.data
-        })
-    }
-  }
-}
-</script>
-
-<style scoped>
+<style>
 #app {
-  @apply h-full;
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+}
+
+#nav {
+  padding: 30px;
+}
+
+#nav a {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+#nav a.router-link-exact-active {
+  color: #42b983;
 }
 </style>

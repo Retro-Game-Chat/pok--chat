@@ -90,8 +90,8 @@ export default {
       typing: false,
       location: 'route11',
       me: {
-        name: 'luke',
-        color: 'red',
+        name: this.$route.params.name,
+        color: this.$route.params.version,
         direction: 'left',
         moving: false,
         x: 19,
@@ -111,6 +111,10 @@ export default {
   },
 
   created() {
+    if (this.me.name === undefined && this.me.color === undefined) {
+      this.$router.push({ name: 'Login'})
+    }
+    this.characters.push(this.me)
     window.addEventListener('keydown', this.listenWillMove)
     window.addEventListener('keydown', this.listenTyping)
     window.addEventListener('keydown', this.listenLook)
