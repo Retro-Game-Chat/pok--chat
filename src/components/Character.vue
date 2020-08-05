@@ -1,12 +1,14 @@
 <template>
   <div 
-    class="Character"
+    class="Character Tooltip"
     :class="[`Character--${character.direction || 'down'}`, { 'Character--moving' : character.moving } ]"
     :style="{
       left: (character.x + 20) + 'rem',
       top: (character.y + 9) + 'rem'
     }"
-  />
+  >
+    <span class="Character--tooltip Tooltip-text">{{ character.name }}</span>
+  </div>
 </template>
 
 <script>
@@ -23,6 +25,17 @@ export default {
 </script>
 
 <style scoped>
+.Tooltip .Tooltip-text {
+  visibility: hidden;
+  text-align: center;
+  padding: 2px 20px;
+  position: absolute;
+  z-index: 100;
+}
+.Tooltip:hover .Tooltip-text {
+  visibility: visible;
+}
+
 .Character {
   @apply absolute h-4 w-4;
 }
@@ -59,5 +72,9 @@ export default {
 .Character--right.Character--moving {
   background: no-repeat url('~@/assets/images/overworld.png') -5rem 0rem;
   transform: scaleX(-1);
+}
+
+.Character--tooltip {
+  @apply bg-white p-3 -mt-6 -ml-6 rounded
 }
 </style>
