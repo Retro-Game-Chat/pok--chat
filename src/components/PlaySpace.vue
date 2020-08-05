@@ -24,7 +24,23 @@ const keys = {
       }
     }
   },
+  87: {
+    name: 'up',
+    do: (character) => {
+      if (character.y > 0) {
+        character.y -= 1
+      }
+    }
+  },
   40: {
+    name: 'down',
+    do: (character) => {
+      if (character.y < 17) {
+        character.y += 1
+      }
+    }
+  },
+  83: {
     name: 'down',
     do: (character) => {
       if (character.y < 17) {
@@ -40,7 +56,23 @@ const keys = {
       }
     }
   },
+  65: {
+    name: 'left',
+    do: (character) => {
+      if (character.x !== 0) {
+        character.x -= 1
+      }
+    }
+  },
   39: {
+    name: 'right',
+    do: (character) => {
+      if (character.x < 39) {
+        character.x += 1
+      }
+    }
+  },
+  68: {
     name: 'right',
     do: (character) => {
       if (character.x < 39) {
