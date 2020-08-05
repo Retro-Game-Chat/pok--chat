@@ -5,6 +5,7 @@
         Luke: Hey there!
       </li>
     </ul>
+    <p class="notice">Press Y to chat.</p>
   </div>
 </template>
 
@@ -20,6 +21,12 @@ export default {
   src: url('~@/assets/fonts/pokemon-gb/PokemonGb-RAeo.ttf') format("truetype");
   font-weight: normal;
   font-style: normal;
+}
+
+.notice {
+  position: absolute;
+  right: 0.5rem;
+  bottom: 0;
 }
 
 .box {

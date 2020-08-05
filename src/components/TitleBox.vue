@@ -19,12 +19,13 @@ export default {
 .box {
   top: -1.8rem;
   position: absolute;
-  font-size: 0.5rem;
+  font-size: 0.7rem;
   font-family: "Pokemon GB", Arial, sans-serif;
   border-radius: 0.125rem;
   padding: 0.5rem;
+  text-align: center;
 
-  width: 16rem;
+  width: 20rem;
   height: 2rem;
   line-height: 1rem;
   margin: auto;
