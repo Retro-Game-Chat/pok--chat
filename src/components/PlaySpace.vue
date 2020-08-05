@@ -5,6 +5,7 @@
     >
       <TitleBox />
       <Characters :characters="characters" :me="me" />
+      <ChatEntry :typing="typing" />
       <ChatBox />
     </div>
   </div>
@@ -13,6 +14,7 @@
 <script>
 import Characters from './Characters'
 import ChatBox from './ChatBox'
+import ChatEntry from './ChatEntry'
 import TitleBox from './TitleBox'
 
 const keys = {
@@ -88,11 +90,13 @@ export default {
   components: {
     Characters,
     ChatBox,
+    ChatEntry,
     TitleBox
   },
 
   data () {
     return {
+      typing: false,
       location: 'route11',
       me: {
         name: 'luke',
@@ -114,23 +118,39 @@ export default {
   },
 
   created() {
+    window.addEventListener('keydown', this.listenTyping)
     window.addEventListener('keydown', this.listenLook)
     window.addEventListener('keyup', this.listenMove)
   },
 
   methods: {
+    listenTyping(e) {
+      if (!this.typing) {
+        if (e.which === 84) {
+          this.typing = true
+        }
+      } else {
+        if (e.which === 27) {
+          this.typing = false
+        }
+      }
+    },
     listenMove(e) {
-      const action = keys[e.which]
+      if (!this.typing) {
+        const action = keys[e.which]
 
-      if (action) {
-        action.do(this.me)
+        if (action) {
+          action.do(this.me)
+        }
       }
     },
     listenLook(e) {
-      const action = keys[e.which]
+      if (!this.typing) {
+        const action = keys[e.which]
 
-      if (action) {
-        this.me.direction = action.name
+        if (action) {
+          this.me.direction = action.name
+        }
       }
     },
   }
