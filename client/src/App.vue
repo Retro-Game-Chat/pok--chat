@@ -3,12 +3,13 @@
     <!-- <Nav class="mb-6" /> -->
     <PlaySpace v-if="!!server.status && server.status === 'ok'" />
     <template v-else>
-      <Connecting msg="Connecting..."/>
+      <Connecting message="Connecting..."/>
     </template>
   </div>
 </template>
 
 <script>
+import Connecting from '@/components/Connecting.vue'
 import PlaySpace from '@/components/PlaySpace.vue'
 import ServerService from '@/services/Server'
 // import Nav from './components/Nav.vue'
@@ -17,6 +18,7 @@ export default {
   name: 'App',
   components: {
     PlaySpace,
+    Connecting,
     // Nav
   },
   data () {
