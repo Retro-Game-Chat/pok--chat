@@ -1,10 +1,10 @@
 <template>
   <div 
     class="Character"
-    :class="[`Character--${character.direction || 'down'}`, { 'Character--moving' : moving } ]"
+    :class="[`Character--${character.direction || 'down'}`, { 'Character--moving' : character.moving } ]"
     :style="{
-      left: (character.x || 20) + 'rem',
-      top: (character.y || 9) + 'rem'
+      left: (character.x + 20) + 'rem',
+      top: (character.y + 9) + 'rem'
     }"
   />
 </template>
@@ -12,26 +12,6 @@
 <script>
 export default {
   name: 'Character',
-
-  data() {
-    return {
-      moving: false
-    }
-  },
-
-  created() {
-    window.addEventListener('keydown', this.listenMove)
-    window.addEventListener('keyup', this.listenStop)
-  },
-
-  methods: {
-    listenMove() {
-      this.moving = true
-    },
-    listenStop() {
-      this.moving = false
-    }
-  },
 
   props: {
     character: {

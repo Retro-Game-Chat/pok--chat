@@ -1,6 +1,8 @@
 <template>
   <div class="box" :class="{ 'hidden': !typing, 'block': typing }">
-    <input type="text" />
+    <label for="chatEntry">Your msg:</label>
+    <input id="chatEntry" type="text" ref="chatEntry" :disabled="disabled" />
+    <p>⏎ to send</p>
   </div>
 </template>
 
@@ -8,10 +10,28 @@
 export default {
   name: 'ChatEntry',
 
+  data () {
+    return {
+      disabled: true
+    }
+  },
+
   props: {
     typing: {
       type: Boolean,
       default: false
+    }
+  },
+
+  watch: {
+    typing (typing) {
+      this.disabled = !typing
+
+      if (typing) {
+        this.$nextTick(() => {
+          this.$refs.chatEntry.focus()
+        })
+      }
     }
   }
 }
@@ -43,5 +63,25 @@ export default {
               inset 0 1px 0 1px black,
               0 0 0 1px black,
               inset 0 0 0 1px black;
+}
+
+label, input, p {
+  display: inline-block
+}
+
+label {
+  width: 5rem
+}
+
+input {
+  width: 14.5rem
+}
+
+p {
+  width: 5rem
+}
+
+input:focus {
+  @apply outline-none
 }
 </style>
