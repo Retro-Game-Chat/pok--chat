@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import Character from './Character.vue'
+import Character from '@/components/Character.vue'
 
 export default {
   name: 'Characters',

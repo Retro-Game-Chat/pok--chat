@@ -12,10 +12,10 @@
 </template>
 
 <script>
-import Characters from './Characters'
-import ChatBox from './ChatBox'
-import ChatEntry from './ChatEntry'
-import TitleBox from './TitleBox'
+import Characters from '@/components/Characters'
+import ChatBox from '@/components/ChatBox'
+import ChatEntry from '@/components/ChatEntry'
+import TitleBox from '@/components/TitleBox'
 
 const move = {
   up: (character) => {

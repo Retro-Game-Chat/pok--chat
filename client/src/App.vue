@@ -1,12 +1,16 @@
 <template>
   <div id="app">
     <!-- <Nav class="mb-6" /> -->
-    <PlaySpace />
+    <PlaySpace v-if="!!server.status && server.status === 'ok'" />
+    <template v-else>
+      <Connecting msg="Connecting..."/>
+    </template>
   </div>
 </template>
 
 <script>
-import PlaySpace from './components/PlaySpace.vue'
+import PlaySpace from '@/components/PlaySpace.vue'
+import ServerService from '@/services/Server'
 // import Nav from './components/Nav.vue'
 
 export default {
@@ -14,6 +18,22 @@ export default {
   components: {
     PlaySpace,
     // Nav
+  },
+  data () {
+    return {
+      server: {},
+    }
+  },
+  mounted () {
+    this.getServerStatus()
+  },
+  methods: {
+    getServerStatus () {
+      ServerService.fetchStatus()
+        .then((response) => {
+          this.server = response.data
+        })
+    }
   }
 }
 </script>
