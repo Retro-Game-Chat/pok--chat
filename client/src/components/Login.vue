@@ -5,7 +5,7 @@
         <label class="Login__form--name-label" for="grid-name">
           Name
         </label>
-        <input class="Login__form--name-input" :class="{ 'border-red-500': errors.length }" id="grid-name" type="text" ref="name" placeholder="Luke" v-model="name" @keydown.esc.exact.prevent @keyup.esc.exact="$event.target.blur()">
+        <input class="Login__form--name-input" :class="{ 'border-red-500': errors.length }" id="grid-name" type="text" ref="name" placeholder="Luke" v-model="name">
         <p v-for="(error, index) in errors" :key="`error-${index}`" class="text-red-500 text-xs italic">{{ error }}</p>
       </div>
       <div class="Login__form--version-layout">
@@ -47,25 +47,6 @@
 <script>
 import UserService from '@/services/User'
 
-const keys = {
-  82: {
-    name: 'red',
-    do: () => {
-      if (!this.isTextInputFocused) {
-        console.log('red')
-      }
-    }
-  },
-  66: {
-    name: 'blue',
-    do: () => {
-      if (!this.isTextInputFocused) {
-        console.log('blue')
-      }
-    }
-  },
-}
-
 export default {
   name: 'Login',
 
@@ -85,19 +66,7 @@ export default {
     this.$refs.name.focus();
   },
 
-  created() {
-    window.addEventListener('keyup', this.listenChoice)
-  },
-
   methods: {
-    listenChoice(e) {
-        const action = keys[e.which]
-
-        if (action) {
-          action.do();
-        }
-    },
-
     submitted() {
       if (this.name && this.versionOption) {
         UserService
