@@ -5,26 +5,29 @@
         <label class="Login__form--name-label" for="grid-name">
           Name
         </label>
-        <input class="Login__form--name-input" :class="{ 'border-red-500': errors.length }" id="grid-name" type="text" ref="name" placeholder="Luke" v-model="name">
+        <input class="Login__form--name-input" :class="{ 'border-red-500': errors.length }" id="grid-name" type="text" ref="name" placeholder="Luke" v-model="name" @keydown.esc.exact.prevent @keyup.esc.exact="$event.target.blur()">
         <p v-for="(error, index) in errors" :key="`error-${index}`" class="text-red-500 text-xs italic">{{ error }}</p>
       </div>
       <div class="Login__form--version-layout">
         <div class="w-full">
-          <label class="Login__form--version-label" for="grid-version">
-            Version
-          </label>
-          <div class="relative">
+          <div class="Login__form--radio-layout">
             <label for="red">
               <input type="radio"
                     id="red"
                     value="Red"
-                    v-model="versionOption">  Red
+                    class="Login__form--radio"
+                    v-model="versionOption">
+
+              <span class="Character Character--down-red"></span>
             </label>
             <label for="blue">
               <input type="radio"
                     id="blue"
                     value="Blue"
-                    v-model="versionOption"> Blue
+                    class="Login__form--radio"
+                    v-model="versionOption">
+
+              <span class="Character Character--down-blue"></span>
             </label>
           </div>
         </div>
@@ -44,6 +47,25 @@
 <script>
 import UserService from '@/services/User'
 
+const keys = {
+  82: {
+    name: 'red',
+    do: () => {
+      if (!this.isTextInputFocused) {
+        console.log('red')
+      }
+    }
+  },
+  66: {
+    name: 'blue',
+    do: () => {
+      if (!this.isTextInputFocused) {
+        console.log('blue')
+      }
+    }
+  },
+}
+
 export default {
   name: 'Login',
 
@@ -55,16 +77,25 @@ export default {
       name: null,
       versionOption: null,
       errors: [],
+      isTextInputFocused: false
     }
   },
 
   mounted() {
-    this.focusInput();
+    this.$refs.name.focus();
+  },
+
+  created() {
+    window.addEventListener('keyup', this.listenChoice)
   },
 
   methods: {
-    focusInput() {
-      this.$refs.name.focus();
+    listenChoice(e) {
+        const action = keys[e.which]
+
+        if (action) {
+          action.do();
+        }
     },
 
     submitted() {
@@ -133,5 +164,40 @@ export default {
 .Login__form--name-layout
 .Login__form--version-layout {
   @apply flex flex-wrap -mx-3 mb-2
+}
+
+.Character {
+  @apply absolute h-4 w-4;
+  zoom: 400%;
+}
+
+.Character--down-red {
+  background: no-repeat url('~@/assets/images/overworld.png') 0rem 0rem;
+}
+
+.Character--down-blue {
+  background: no-repeat url('~@/assets/images/overworld.png') -8rem 0rem;
+  left: 5rem;
+}
+
+/* .Login__form--radio {
+  width: 0;
+  height: 0;
+} */
+
+.Login__form--radio-layout {
+  height: 5rem;
+}
+
+[type=radio] { 
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* CHECKED STYLES */
+[type=radio]:checked + span {
+  outline: 1px solid #f00;
 }
 </style>
