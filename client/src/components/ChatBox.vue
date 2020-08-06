@@ -1,7 +1,8 @@
 <template>
-  <div class="box">
-    <ul>
-      <li v-for="event in events" v-bind:key="'event' + event.id" class="chat-row">
+  <div class="PokéBox PokéBox__ChatBox">
+    <ul id="ChatBox">
+      <li>Welcome to <strong>Route 11</strong> chat!</li>
+      <li v-for="event in events" v-bind:key="'event' + event.id">
         <div v-if="event.type === 'text'">
           <strong>{{ name(members.get(event.from).display_name) }}</strong>: {{ event.body.text }}
         </div>
@@ -9,8 +10,9 @@
           <strong>{{ name(event.body.user.display_name) }}</strong> has joined <strong>#{{ event.conversation.display_name }}</strong>.
         </div>
       </li>
+      <li> </li>
     </ul>
-    <p class="notice">Press Y to chat.</p>
+    <p class="ChatBox__Notice">Press Y to chat.</p>
   </div>
 </template>
 
@@ -62,53 +64,35 @@ export default {
       })
     },
     scrollChat () {
-        const items = document.querySelectorAll(".chat-row")
-        const last = items[items.length-1]
-
-        if (last !== undefined) {
-          last.scrollIntoView()
-        }
+      const chatBox = document.getElementById("ChatBox")
+      chatBox.scrollTop = chatBox.scrollHeight;
     }
   }
 }
 </script>
 
 <style scoped>
-@font-face {
-  font-family: "Pokemon GB";
-  src: url('~@/assets/fonts/pokemon-gb/PokemonGb-RAeo.ttf') format("truetype");
-  font-weight: normal;
-  font-style: normal;
+.PokéBox__ChatBox {
+  bottom: -9.8rem;
+  position: absolute;
+
+  width: 38rem;
+  height: 10rem;
 }
 
-.notice {
+.PokéBox__ChatBox ul {
+  height: 8rem;
+  overflow: auto;
+}
+
+.PokéBox__ChatBox ul li {
+  @apply h-4 w-full;
+  display: block;
+}
+
+.ChatBox__Notice {
   position: absolute;
   right: 0.5rem;
   bottom: 0;
-}
-
-.box {
-  bottom: -7.8rem;
-  position: absolute;
-  font-size: 0.5rem;
-  font-family: "Pokemon GB", Arial, sans-serif;
-  border-radius: 0.125rem;
-  padding: 0.5rem;
-
-  width: 38rem;
-  height: 8rem;
-  line-height: 1rem;
-  margin: auto;
-  background: white;
-  border: 1px solid white;
-  box-shadow: 0 1px 0 1px black,
-              inset 0 1px 0 1px black,
-              0 0 0 1px black,
-              inset 0 0 0 1px black;
-}
-
-ul {
-  height: 7rem;
-  overflow-y: scroll;
 }
 </style>

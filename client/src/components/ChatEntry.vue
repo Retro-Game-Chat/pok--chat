@@ -73,8 +73,9 @@ export default {
 
 <style scoped>
 .PokéBox_ChatEntry {
-  @apply leading-8;
+  @apply leading-6 pt-4;
   width: 30rem;
+  z-index: 1;
 }
 
 .ChatEntry__Label, .ChatEntry__Input, .ChatEntry__Action {
