@@ -1,5 +1,7 @@
 // controllers/server.js
-exports.status = function(req, res, next) {
+exports.login = function(req, res, next) {
+  console.log(req.body);
+
   res.json({
     status: 'ok'
   });

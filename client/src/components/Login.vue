@@ -44,6 +44,8 @@
 </template>
 
 <script>
+import UserService from '@/services/User'
+
 export default {
   name: 'Login',
 
@@ -61,7 +63,19 @@ export default {
   methods: {
     submitted() {
       if (this.name && this.versionOption) {
-        this.$router.push({ name: 'PlaySpace', params: { name: this.name, version: this.versionOption } })
+        UserService
+          .login({ name: this.name, version: this.versionOption })
+          .then((response) => {
+            console.log(response)
+          })
+
+        this.$router.push({ 
+          name: 'PlaySpace', 
+          params: { 
+            name: this.name, 
+            version: this.versionOption 
+          } 
+        })
       }
 
       this.errors = []
