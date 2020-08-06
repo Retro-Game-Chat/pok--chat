@@ -23,8 +23,6 @@ exports.login = function(req, res, next) {
       y: 0
     }),
   }, (err, user) => {
-    response.user_id = user.id;
-
     nexmo.conversations.members.create(
       conversationId,
       {
@@ -35,8 +33,6 @@ exports.login = function(req, res, next) {
         }
       },
       (err, member) => {
-        response.member = member;
-
         const aclPaths = {
           "paths": {
             "/*/users/**": {},
@@ -54,7 +50,7 @@ exports.login = function(req, res, next) {
         const expires_at = new Date();
         expires_at.setDate(expires_at.getDate() + 1);
 
-        response.token = nexmo.generateJwt(
+        member.token = nexmo.generateJwt(
           Buffer.from(privateKeyPath, 'utf8')
         , {
           application_id: applicationId,
@@ -63,6 +59,7 @@ exports.login = function(req, res, next) {
           acl: aclPaths
         })
 
+        response.member = member;
         res.json(response);
       }
     );

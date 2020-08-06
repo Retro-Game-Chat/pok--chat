@@ -93,12 +93,18 @@ export default {
   },
 
   data () {
+    const { member: user } = this.$route.params
+
+    user.data = JSON.parse(user.display_name)
+    user.unique_name = user.name
+    user.name = user.data.n
+    user.color = user.data.s
+
     return {
       typing: false,
       location: 'route11',
       me: {
-        name: this.$route.params.name,
-        color: this.$route.params.version,
+        ...user,
         ...startingPosition
       },
       characters: [

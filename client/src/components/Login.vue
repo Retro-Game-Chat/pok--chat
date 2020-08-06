@@ -72,16 +72,11 @@ export default {
         UserService
           .login({ name: this.name, version: this.versionOption })
           .then((response) => {
-            console.log(response.data)
+            this.$router.push({ 
+              name: 'PlaySpace', 
+              params: { ...response.data } 
+            })
           })
-
-        this.$router.push({ 
-          name: 'PlaySpace', 
-          params: { 
-            name: this.name, 
-            version: this.versionOption 
-          } 
-        })
       }
 
       this.errors = []
