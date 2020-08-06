@@ -75,6 +75,13 @@ const keys = {
   }
 }
 
+const startingPosition = {
+  direction: 'left',
+  moving: false,
+  x: 19,
+  y: -1
+}
+
 export default {
   name: 'PlaySpace',
 
@@ -92,19 +99,13 @@ export default {
       me: {
         name: this.$route.params.name,
         color: this.$route.params.version,
-        direction: 'left',
-        moving: false,
-        x: 19,
-        y: -1
+        ...startingPosition
       },
       characters: [
         {
           name: 'greg',
           color: 'blue',
-          direction: 'left',
-          moving: false,
-          x: 19,
-          y: -1
+          ...startingPosition
         }
       ]
     }
@@ -114,7 +115,7 @@ export default {
     if (this.me.name === undefined && this.me.color === undefined) {
       this.$router.push({ name: 'Login'})
     }
-    this.characters.push(this.me)
+
     window.addEventListener('keydown', this.listenWillMove)
     window.addEventListener('keydown', this.listenTyping)
     window.addEventListener('keydown', this.listenLook)
