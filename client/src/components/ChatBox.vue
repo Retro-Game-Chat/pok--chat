@@ -1,7 +1,7 @@
 <template>
   <div class="box">
     <ul>
-      <li v-for="event in events" v-bind:key="'event' + event.id">
+      <li v-for="event in events" v-bind:key="'event' + event.id" class="chat-row">
         <div v-if="event.type === 'text'">
           <strong>{{ name(members.get(event.from).display_name) }}</strong>: {{ event.body.text }}
         </div>
@@ -51,12 +51,24 @@ export default {
 
       conversation.on('text', (user, event) => {
         this.events.push(event)
+
+        this.scrollChat()
       })
 
       conversation.on("member:joined", (user, event) => {
         this.events.push(event)
+
+        this.scrollChat()
       })
     },
+    scrollChat () {
+        const items = document.querySelectorAll(".chat-row")
+        const last = items[items.length-1]
+
+        if (last !== undefined) {
+          last.scrollIntoView()
+        }
+    }
   }
 }
 </script>
