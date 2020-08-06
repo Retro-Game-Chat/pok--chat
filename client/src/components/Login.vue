@@ -6,7 +6,7 @@
           <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-name">
             Name
           </label>
-          <input class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" :class="{ 'border-red-500': errors.length }" id="grid-name" type="text" placeholder="Luke" v-model="name">
+          <input class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" :class="{ 'border-red-500': errors.length }" id="grid-name" type="text" ref="name" placeholder="Luke" v-model="name">
           <p v-for="(error, index) in errors" :key="`error-${index}`" class="text-red-500 text-xs italic">{{ error }}</p>
         </div>
       </div>
@@ -60,7 +60,15 @@ export default {
     }
   },
 
+  mounted() {
+    this.focusInput();
+  },
+
   methods: {
+    focusInput() {
+      this.$refs.name.focus();
+    },
+
     submitted() {
       if (this.name && this.versionOption) {
         UserService
