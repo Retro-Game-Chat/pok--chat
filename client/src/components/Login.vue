@@ -6,8 +6,8 @@
           <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-name">
             Name
           </label>
-          <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-name" type="text" placeholder="Luke" v-model="name">
-          <p class="text-red-500 text-xs italic">Please fill out this field.</p>
+          <input class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" :class="{ 'border-red-500': errors.length }" id="grid-name" type="text" placeholder="Luke" v-model="name">
+          <p v-for="(error, index) in errors" :key="`error-${index}`" class="text-red-500 text-xs italic">{{ error }}</p>
         </div>
       </div>
       <div class="flex flex-wrap -mx-3 mb-2">
@@ -44,8 +44,6 @@
 </template>
 
 <script>
-
-
 export default {
   name: 'Login',
 
@@ -54,19 +52,26 @@ export default {
 
   data () {
     return {
-      name: name,
+      name: null,
       versionOption: null,
-      isSubmitted: false
+      errors: [],
     }
   },
 
   methods: {
     submitted() {
-      this.isSubmitted = true;
+      if (this.name && this.versionOption) {
+        this.$router.push({ name: 'PlaySpace', params: { name: this.name, version: this.versionOption } })
+      }
 
-      // todo: save details somewhere
+      this.errors = []
 
-      this.$router.push({ name: 'PlaySpace', params: { name: this.name, version: this.versionOption } })
+      if (!this.name) {
+        this.errors.push('Name required.')
+      }
+      if (!this.versionOption) {
+        this.errors.push('Pick a character.')
+      }
     }
   }
 }
