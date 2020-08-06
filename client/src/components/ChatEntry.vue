@@ -1,7 +1,7 @@
 <template>
-  <div class="box" :class="{ 'hidden': !typing, 'block': typing }">
-    <label for="chatEntry">Your msg:</label>
-    <input 
+  <div class="PokéBox PokéBox_ChatEntry" :class="{ 'hidden': !typing, 'block': typing }">
+    <label class="ChatEntry__Label" for="chatEntry">Your msg:</label>
+    <input class="ChatEntry__Input"
       id="chatEntry"
       type="text"
       ref="chatEntry"
@@ -10,7 +10,9 @@
       @keydown.enter.exact.prevent
       @keyup.enter.exact="sendMessage"
     />
-    <p>⏎ to send</p>
+    <button class="ChatEntry__Action" type="button" @click.prevent="sendMessage">
+      ⏎ to send
+    </button>
   </div>
 </template>
 
@@ -70,51 +72,28 @@ export default {
 </script>
 
 <style scoped>
-@font-face {
-  font-family: "Pokemon GB";
-  src: url('~@/assets/fonts/pokemon-gb/PokemonGb-RAeo.ttf') format("truetype");
-  font-weight: normal;
-  font-style: normal;
+.PokéBox_ChatEntry {
+  @apply leading-8;
+  width: 30rem;
 }
 
-.box {
-  top: 14rem;
-  position: absolute;
-  font-size: 0.5rem;
-  font-family: "Pokemon GB", Arial, sans-serif;
-  border-radius: 0.125rem;
-  padding: 0.5rem;
-
-  width: 26rem;
-  height: 2rem;
-  line-height: 1rem;
-  margin: auto;
-  background: white;
-  border: 1px solid white;
-  box-shadow: 0 1px 0 1px black,
-              inset 0 1px 0 1px black,
-              0 0 0 1px black,
-              inset 0 0 0 1px black;
+.ChatEntry__Label, .ChatEntry__Input, .ChatEntry__Action {
+  @apply inline-block;
 }
 
-label, input, p {
-  display: inline-block
+.ChatEntry__Label {
+  @apply ml-4 w-24;
 }
 
-label {
-  width: 5rem
+.ChatEntry__Input {
+  @apply mr-4 w-56;
 }
 
-input {
-  width: 13.5rem;
-  margin-right: 1rem
+.ChatEntry__Action {
+  @apply w-24;
 }
 
-p {
-  width: 5rem
-}
-
-input:focus {
-  @apply outline-none
+.ChatEntry__Input:focus {
+  @apply outline-none;
 }
 </style>

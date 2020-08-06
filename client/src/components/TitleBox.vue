@@ -1,5 +1,5 @@
 <template>
-  <div class="box">Welcome to Route 11 chat!</div>
+  <div class="PokéBox PokéBox__TitleBox">PokéChat!</div>
 </template>
 
 <script>
@@ -9,31 +9,7 @@ export default {
 </script>
 
 <style scoped>
-@font-face {
-  font-family: "Pokemon GB";
-  src: url('~@/assets/fonts/pokemon-gb/PokemonGb-RAeo.ttf') format("truetype");
-  font-weight: normal;
-  font-style: normal;
-}
-
-.box {
-  top: -1.8rem;
-  position: absolute;
-  font-size: 0.7rem;
-  font-family: "Pokemon GB", Arial, sans-serif;
-  border-radius: 0.125rem;
-  padding: 0.5rem;
-  text-align: center;
-
-  width: 20rem;
-  height: 2rem;
-  line-height: 1rem;
-  margin: auto;
-  background: white;
-  border: 1px solid white;
-  box-shadow: 0 1px 0 1px black,
-              inset 0 1px 0 1px black,
-              0 0 0 1px black,
-              inset 0 0 0 1px black;
+.PokéBox__TitleBox {
+  @apply w-64 text-xl h-10 text-center pt-4 mb-4;
 }
 </style>

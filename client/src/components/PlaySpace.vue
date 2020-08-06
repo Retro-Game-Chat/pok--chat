@@ -1,9 +1,6 @@
 <template>
   <div class="PlaySpace">
-    <div class="PlayBox"
-    :style="{ backgroundImage: `url(${require(`@/assets/images/route11.png`)})` }"
-    >
-      <TitleBox />
+    <div class="PlayBox">
       <Characters :characters="characters" :me="me" />
       <ChatEntry v-if="!!conversation" :conversation="conversation" :typing="typing" />
       <ChatBox v-if="!!conversation" :conversation="conversation" />
@@ -15,7 +12,6 @@
 import Characters from '@/components/Characters'
 import ChatBox from '@/components/ChatBox'
 import ChatEntry from '@/components/ChatEntry'
-import TitleBox from '@/components/TitleBox'
 import Client from 'nexmo-client'
 
 const move = {
@@ -89,8 +85,7 @@ export default {
   components: {
     Characters,
     ChatBox,
-    ChatEntry,
-    TitleBox
+    ChatEntry
   },
 
   data () {
@@ -200,14 +195,9 @@ export default {
 </script>
 
 <style scoped>
-.PlaySpace {
-  @apply flex w-full h-full justify-center items-center;
-}
-
 .PlayBox {
-  zoom: 120%;
   width: 40rem;
   height: 18rem;
-  @apply mt-20 relative border border-black flex justify-center items-center;
+  @apply relative border border-black flex justify-center items-center;
 }
 </style>

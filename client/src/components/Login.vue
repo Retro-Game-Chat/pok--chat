@@ -1,44 +1,59 @@
 <template>
-  <form>
-    <div class="Title box">Login to play!</div>
-    <div>
-      <label for="name">
-        Name
-      </label>
-      <div class="box">
-        <input :class="{ 'border-red-500': errors.length, 'border-2': errors.length }" id="name" type="text" ref="name" placeholder="Enter character name..." v-model="name">
+  <form class="PokéBox LoginForm">
+    <label class="LoginForm__InputLabel">
+      Who are you?
+    </label>
+    <input
+      class="LoginForm__Input"
+      :class="{ 'border-red-500': errors.length }"
+      id="name"
+      type="text"
+      ref="name"
+      v-model="name"
+    >
+    <ul v-if="errors.length > 0" class="LoginForm__Errors">
+      <li
+        v-for="(error, index) in errors"
+        :key="`error-${index}`"
+        class="LoginForm__Error"
+      >
+        {{ error }}
+      </li>
+    </ul>
+    <label class="LoginForm__CharactersLabel">
+      Choose a character
+    </label>
+    <div class="Characters">
+      <div class="Character">
+        <input
+          type="radio"
+          class="Character__Input"
+          id="blue"
+          value="blue"
+          v-model="versionOption"
+        >
+
+        <label for="blue" class="Character_Label">
+          <span class="Character__Image Character__Image--blue"></span>
+        </label>
       </div>
-      <p v-for="(error, index) in errors" :key="`error-${index}`" class="text-red-500 text-xs italic">{{ error }}</p>
-    </div>
-    <div>
-      <label>
-        Avatar
-      </label>
-      <div class="w-full">
-        <div>
-          <label for="red" class="Character__label">
-            <input type="radio"
-              id="red"
-              value="Red"
-              v-model="versionOption">
+      <div class="Character">
+        <input
+          type="radio"
+          class="Character__Input"
+          id="red"
+          value="red"
+          v-model="versionOption"
+        >
 
-            <span class="Character Character--down-red"></span>
-          </label>
-          <label for="blue" class="Character__label">
-            <input type="radio"
-              id="blue"
-              value="Blue"
-              v-model="versionOption">
-
-            <span class="Character Character--down-blue"></span>
-          </label>
-        </div>
+        <label for="red" class="Character_Label">
+          <span class="Character__Image Character__Image--red"></span>
+        </label>
       </div>
     </div>
-
-    <div class="text-center">
-      <button class="box" type="button" @click.prevent="submitted">
-        Sign Up
+    <div class="text-right">
+      <button type="button" @click.prevent="submitted">
+        ⏎ start
       </button>
     </div>
   </form>
@@ -85,7 +100,7 @@ export default {
         this.errors.push('Name required.')
       }
       if (!this.versionOption) {
-        this.errors.push('Pick a character.')
+        this.errors.push('Character required.')
       }
     }
   }
@@ -93,94 +108,50 @@ export default {
 </script>
 
 <style scoped>
-@font-face {
-  font-family: "Pokemon GB";
-  src: url('~@/assets/fonts/pokemon-gb/PokemonGb-RAeo.ttf') format("truetype");
-  font-weight: normal;
-  font-style: normal;
+.LoginForm {
+  @apply flex flex-col w-64 mt-20;
+}
+
+.LoginForm__Input {
+  @apply border-b border-black mt-4 outline-none;
+}
+
+.LoginForm__Errors {
+  @apply mt-4 text-red-500 italic;
+}
+
+.LoginForm__CharactersLabel {
+  @apply mt-4;
+}
+
+.Characters {
+  @apply flex;
 }
 
 .Character {
-  @apply inline-block h-4 w-4;
-  zoom: 600%;
+  @apply m-2;
+  zoom: 150%;
 }
 
-.Character--down-red {
+.Character__Input {
+  @apply absolute;
+  left: -9999px;
+}
+
+.Character__Input:checked + .Character_Label {
+  @apply border-b-2 border-black;
+}
+
+.Character .Character__Image {
+  @apply inline-block h-4 w-4;
+}
+
+.Character .Character__Image--red {
   background: no-repeat url('~@/assets/images/overworld.png') 0rem 0rem;
 }
 
-.Character--down-blue {
+.Character .Character__Image--blue {
   background: no-repeat url('~@/assets/images/overworld.png') -8rem 0rem;
-  left: 5rem;
 }
 
-input[type=radio] { 
-  position: absolute;
-  left: -9000rem;
-}
-
-input[type=radio]:checked + span {
-  outline: 1px solid #f00;
-}
-
-form {
-  @apply text-center mt-10;
-}
-
-.box {
-  top: -1.8rem;
-  font-size: 0.5rem;
-  font-family: "Pokemon GB", Arial, sans-serif;
-  border-radius: 0.125rem;
-  padding: 0.5rem;
-  text-align: center;
-
-  width: 20rem;
-  min-height: 2rem;
-  line-height: 1rem;
-  margin: auto;
-  background: white;
-  border: 1px solid white;
-  box-shadow: 0 1px 0 1px black,
-              inset 0 1px 0 1px black,
-              0 0 0 1px black,
-              inset 0 0 0 1px black;
-}
-
-input[type="text"] {
-  @apply w-full outline-none leading-normal h-5 overflow-visible p-4;
-  font-size: 0.5rem;
-  box-sizing: border-box;
-}
-
-input[type="text"]::placeholder {
-  @apply overflow-visible;
-}
-
-.Title {
-  font-size: 1rem;
-  padding: 1rem;
-}
-
-label {
-  font-family: "Pokemon GB", Arial, sans-serif;
-  @apply block m-5;
-}
-
-.Character__label {
-  display: inline-block;
-}
-
-button.box {
-  width: 10rem;
-  border: 0px;
-  box-shadow: 0 1px 0 1px black,
-              inset 0 1px 0 1px black,
-              0 0 0 1px black,
-              inset 0 0 0 1px black;
-}
-
-button.box:hover {
-  @apply bg-gray-200;
-}
 </style>
