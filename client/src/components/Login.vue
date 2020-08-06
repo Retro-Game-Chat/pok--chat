@@ -66,7 +66,7 @@ export default {
         UserService
           .login({ name: this.name, version: this.versionOption })
           .then((response) => {
-            console.log(response)
+            console.log(response.data)
           })
 
         this.$router.push({ 
