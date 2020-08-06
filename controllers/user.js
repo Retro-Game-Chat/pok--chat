@@ -1,9 +1,8 @@
+// controllers/server.js
+
 const nexmo = require('../utils/nexmo');
 
-// controllers/server.js
 exports.login = function(req, res, next) {
-  console.log(req.body);
-
   const { 
     VONAGE_PRIVATE_KEY_PATH: privateKeyPath,
     VONAGE_APPLICATION_ID: applicationId,
@@ -50,9 +49,7 @@ exports.login = function(req, res, next) {
         const expires_at = new Date();
         expires_at.setDate(expires_at.getDate() + 1);
 
-        member.token = nexmo.generateJwt(
-          Buffer.from(privateKeyPath, 'utf8')
-        , {
+        member.token = nexmo.generateJwt({
           application_id: applicationId,
           sub: member.name,
           exp: Math.round(expires_at/1000),

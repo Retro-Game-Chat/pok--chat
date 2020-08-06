@@ -1,8 +1,13 @@
 <template>
   <div class="box">
     <ul>
-      <li>
-        Luke: Hey there!
+      <li v-for="event in events" v-bind:key="'event' + event.id">
+        <div v-if="event.type === 'text'">
+          <strong>{{ name(members.get(event.from).display_name) }}</strong>: {{ event.body.text }}
+        </div>
+        <div v-else-if="event.type === 'member:joined'">
+          <strong>{{ name(event.body.user.display_name) }}</strong> has joined <strong>#{{ event.conversation.display_name }}</strong>.
+        </div>
       </li>
     </ul>
     <p class="notice">Press Y to chat.</p>
@@ -11,7 +16,48 @@
 
 <script>
 export default {
-  name: 'ChatBox'
+  name: 'ChatBox',
+
+  props: {
+    conversation: {
+      type: Object,
+      required: true
+    },
+  },
+
+  data () {
+    let members = new Map()
+
+    if (this.conversation) {
+      members = this.conversation.members
+    }
+
+    return {
+      events: [],
+      members
+    }
+  },
+
+  mounted () {
+    this.registerListeners()
+  },
+
+  methods: {
+    name(data) {
+      return JSON.parse(data).n
+    },
+    registerListeners () {
+      const { conversation } = this.$props
+
+      conversation.on('text', (user, event) => {
+        this.events.push(event)
+      })
+
+      conversation.on("member:joined", (user, event) => {
+        this.events.push(event)
+      })
+    },
+  }
 }
 </script>
 
@@ -47,5 +93,10 @@ export default {
               inset 0 1px 0 1px black,
               0 0 0 1px black,
               inset 0 0 0 1px black;
+}
+
+ul {
+  height: 7rem;
+  overflow-y: scroll;
 }
 </style>

@@ -1,7 +1,15 @@
 <template>
   <div class="box" :class="{ 'hidden': !typing, 'block': typing }">
     <label for="chatEntry">Your msg:</label>
-    <input id="chatEntry" type="text" ref="chatEntry" :disabled="disabled" />
+    <input 
+      id="chatEntry"
+      type="text"
+      ref="chatEntry"
+      :disabled="disabled"
+      maxlength="30" 
+      @keydown.enter.exact.prevent
+      @keyup.enter.exact="sendMessage"
+    />
     <p>⏎ to send</p>
   </div>
 </template>
@@ -20,7 +28,11 @@ export default {
     typing: {
       type: Boolean,
       default: false
-    }
+    },
+    conversation: {
+      type: Object,
+      required: true
+    },
   },
 
   watch: {
@@ -31,6 +43,26 @@ export default {
         this.$nextTick(() => {
           this.$refs.chatEntry.focus()
         })
+      } else {
+        this.$refs.chatEntry.value = ''
+      }
+    }
+  },
+
+  methods: {
+    sendMessage () {
+      const chatEntry = this.$refs.chatEntry.value
+
+      if (chatEntry.replace(/\s/g,'').length > 0) {
+        this.$props.conversation
+          .sendText(chatEntry.trim())
+          .then(() => {
+            this.$nextTick(() => {
+              this.$refs.chatEntry.focus()
+              this.$refs.chatEntry.value = ''
+            });
+          })
+          .catch(console.error)
       }
     }
   }
@@ -74,7 +106,8 @@ label {
 }
 
 input {
-  width: 14.5rem
+  width: 13.5rem;
+  margin-right: 1rem
 }
 
 p {

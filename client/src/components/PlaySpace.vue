@@ -1,12 +1,12 @@
 <template>
   <div class="PlaySpace">
     <div class="PlayBox"
-    :style="{ backgroundImage: `url(${require(`@/assets/images/${location}.png`)})` }"
+    :style="{ backgroundImage: `url(${require(`@/assets/images/route11.png`)})` }"
     >
       <TitleBox />
       <Characters :characters="characters" :me="me" />
-      <ChatEntry :typing="typing" />
-      <ChatBox />
+      <ChatEntry v-if="!!conversation" :conversation="conversation" :typing="typing" />
+      <ChatBox v-if="!!conversation" :conversation="conversation" />
     </div>
   </div>
 </template>
@@ -16,6 +16,7 @@ import Characters from '@/components/Characters'
 import ChatBox from '@/components/ChatBox'
 import ChatEntry from '@/components/ChatEntry'
 import TitleBox from '@/components/TitleBox'
+import Client from 'nexmo-client'
 
 const move = {
   up: (character) => {
@@ -93,16 +94,20 @@ export default {
   },
 
   data () {
-    const { member: user } = this.$route.params
+    const { member: user, conversation } = this.$route.params
 
-    user.data = JSON.parse(user.display_name)
-    user.unique_name = user.name
-    user.name = user.data.n
-    user.color = user.data.s
+    if (this.$route.params.member ) {
+      user.data = JSON.parse(user.display_name)
+      user.unique_name = user.name
+      user.name = user.data.n
+      user.color = user.data.s
+    }
 
     return {
+      app: null,
+      conversation: null,
+      conversationId: conversation,
       typing: false,
-      location: 'route11',
       me: {
         ...user,
         ...startingPosition
@@ -118,8 +123,10 @@ export default {
   },
 
   created() {
-    if (this.me.name === undefined && this.me.color === undefined) {
-      this.$router.push({ name: 'Login'})
+    if (this.me.token === undefined) {
+      this.$router.push({ name: 'Login' })
+    } else {
+      this.connect()
     }
 
     window.addEventListener('keydown', this.listenWillMove)
@@ -129,6 +136,20 @@ export default {
   },
 
   methods: {
+    connect () {
+      new Client()
+        .login(this.me.token)
+        .then(app => {
+          this.app = app
+
+          return app.getConversation(this.conversationId)
+        })
+        .then((conversation) => {
+          this.conversation = conversation
+        })
+        .catch(console.error)
+    },
+
     listenTyping(e) {
       if (!this.typing) {
         // don't block built in commands like Cmd+R
