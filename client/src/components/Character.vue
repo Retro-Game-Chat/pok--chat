@@ -1,7 +1,11 @@
 <template>
   <div 
     class="Character Tooltip"
-    :class="[`Character--${character.direction || 'down'}`, { 'Character--moving' : character.moving } ]"
+    :class="[
+      `Character--${character.color || 'red'}`,
+      `Character--${character.direction || 'down'}`,
+      { 'Character--moving' : character.moving }
+    ]"
     :style="{
       left: (character.x + 20) + 'rem',
       top: (character.y + 9) + 'rem'
@@ -40,37 +44,71 @@ export default {
   @apply absolute h-4 w-4;
 }
 
-.Character--down {
+.Character--red.Character--down {
   background: no-repeat url('~@/assets/images/overworld.png') 0rem 0rem;
 }
 
-.Character--down.Character--moving {
+.Character--red.Character--down.Character--moving {
   background: no-repeat url('~@/assets/images/overworld.png') -3rem 0rem;
 }
 
-.Character--up {
+.Character--red.Character--up {
   background: no-repeat url('~@/assets/images/overworld.png') -1rem 0rem;
 }
 
-.Character--up.Character--moving {
+.Character--red.Character--up.Character--moving {
   background: no-repeat url('~@/assets/images/overworld.png') -4rem 0rem;
 }
 
-.Character--left {
+.Character--red.Character--left {
   background: no-repeat url('~@/assets/images/overworld.png') -2rem 0rem;
 }
 
-.Character--left.Character--moving {
+.Character--red.Character--left.Character--moving {
   background: no-repeat url('~@/assets/images/overworld.png') -5rem 0rem;
 }
 
-.Character--right {
+.Character--red.Character--right {
   background: no-repeat url('~@/assets/images/overworld.png') -2rem 0rem;
   transform: scaleX(-1);
 }
 
-.Character--right.Character--moving {
+.Character--red.Character--right.Character--moving {
   background: no-repeat url('~@/assets/images/overworld.png') -5rem 0rem;
+  transform: scaleX(-1);
+}
+
+.Character--blue.Character--down {
+  background: no-repeat url('~@/assets/images/overworld.png') -8rem 0rem;
+}
+
+.Character--blue.Character--down.Character--moving {
+  background: no-repeat url('~@/assets/images/overworld.png') -11rem 0rem;
+}
+
+.Character--blue.Character--up {
+  background: no-repeat url('~@/assets/images/overworld.png') -9rem 0rem;
+}
+
+.Character--blue.Character--up.Character--moving {
+  background: no-repeat url('~@/assets/images/overworld.png') -12rem 0rem;
+}
+
+.Character--blue.Character--left {
+  background: no-repeat url('~@/assets/images/overworld.png') -10rem 0rem;
+}
+
+.Character--blue.Character--left.Character--moving {
+  background: no-repeat url('~@/assets/images/overworld.png') -13rem 0rem;
+}
+
+.Character--blue.Character--right {
+  background: no-repeat url('~@/assets/images/overworld.png') -10rem 0rem;
+  transform: scaleX(-1);
+}
+
+.Character--blue.Character--right.Character--moving {
+  background: no-repeat url('~@/assets/images/overworld.png') -13rem 0rem;
   transform: scaleX(-1);
 }
 

@@ -3,7 +3,7 @@
     <div class="PlayBox">
       <Characters :characters="characters" :me="me" />
       <ChatEntry v-if="!!conversation" :conversation="conversation" :typing="typing" />
-      <ChatBox v-if="!!conversation" :conversation="conversation" />
+      <ChatBox v-if="!!conversation" :conversation="conversation" :members="members" />
     </div>
   </div>
 </template>
@@ -101,6 +101,7 @@ export default {
     return {
       app: null,
       conversation: null,
+      members: null,
       conversationId: conversation,
       typing: false,
       me: {
@@ -141,6 +142,7 @@ export default {
         })
         .then((conversation) => {
           this.conversation = conversation
+          this.members = conversation.members
         })
         .catch(console.error)
     },
