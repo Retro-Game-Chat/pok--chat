@@ -1,47 +1,47 @@
 <template>
-  <div class="Login">
-    <form class="Login__form">
-      <div class="Login__form--name-layout w-full">
-        <label class="Login__form--name-label" for="grid-name">
-          Name
-        </label>
-        <input class="Login__form--name-input" :class="{ 'border-red-500': errors.length }" id="grid-name" type="text" ref="name" placeholder="Luke" v-model="name">
-        <p v-for="(error, index) in errors" :key="`error-${index}`" class="text-red-500 text-xs italic">{{ error }}</p>
+  <form>
+    <div class="Title box">Login to play!</div>
+    <div>
+      <label for="name">
+        Name
+      </label>
+      <div class="box">
+        <input :class="{ 'border-red-500': errors.length, 'border-2': errors.length }" id="name" type="text" ref="name" placeholder="Enter character name..." v-model="name">
       </div>
-      <div class="Login__form--version-layout">
-        <div class="w-full">
-          <div class="Login__form--radio-layout">
-            <label for="red">
-              <input type="radio"
-                    id="red"
-                    value="Red"
-                    class="Login__form--radio"
-                    v-model="versionOption">
+      <p v-for="(error, index) in errors" :key="`error-${index}`" class="text-red-500 text-xs italic">{{ error }}</p>
+    </div>
+    <div>
+      <label>
+        Avatar
+      </label>
+      <div class="w-full">
+        <div>
+          <label for="red" class="Character__label">
+            <input type="radio"
+              id="red"
+              value="Red"
+              v-model="versionOption">
 
-              <span class="Character Character--down-red"></span>
-            </label>
-            <label for="blue">
-              <input type="radio"
-                    id="blue"
-                    value="Blue"
-                    class="Login__form--radio"
-                    v-model="versionOption">
+            <span class="Character Character--down-red"></span>
+          </label>
+          <label for="blue" class="Character__label">
+            <input type="radio"
+              id="blue"
+              value="Blue"
+              v-model="versionOption">
 
-              <span class="Character Character--down-blue"></span>
-            </label>
-          </div>
+            <span class="Character Character--down-blue"></span>
+          </label>
         </div>
       </div>
+    </div>
 
-      <div class="md:flex md:items-center">
-        <div class="md:w-2/3">
-          <button class="Login__form--button" type="button" @click.prevent="submitted">
-            Sign Up
-          </button>
-        </div>
-      </div>
-    </form>
-  </div>
+    <div class="text-center">
+      <button class="box" type="button" @click.prevent="submitted">
+        Sign Up
+      </button>
+    </div>
+  </form>
 </template>
 
 <script>
@@ -93,51 +93,16 @@ export default {
 </script>
 
 <style scoped>
-.Login {
-  @apply flex w-full h-full justify-center items-center;
-  margin-top: 5rem;
-}
-
-.Login__form {
-  @apply w-full max-w-lg
-}
-
-.Login__form--name-label {
-  @apply block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2
-}
-
-.Login__form--name-input {
-  @apply appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight
-}
-
-.Login__form--name-input:focus {
-  @apply outline-none bg-white
-}
-
-.Login__form--version-label {
-  @apply block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2
-}
-
-.Login__form--button {
-  @apply shadow bg-purple-500 text-white font-bold py-2 px-4 rounded
-}
-
-.Login__form--button:hover {
-  @apply bg-purple-400
-}
-
-.Login__form--button:focus {
-  @apply shadow-outline outline-none
-}
-
-.Login__form--name-layout
-.Login__form--version-layout {
-  @apply flex flex-wrap -mx-3 mb-2
+@font-face {
+  font-family: "Pokemon GB";
+  src: url('~@/assets/fonts/pokemon-gb/PokemonGb-RAeo.ttf') format("truetype");
+  font-weight: normal;
+  font-style: normal;
 }
 
 .Character {
-  @apply absolute h-4 w-4;
-  zoom: 400%;
+  @apply inline-block h-4 w-4;
+  zoom: 600%;
 }
 
 .Character--down-red {
@@ -149,24 +114,73 @@ export default {
   left: 5rem;
 }
 
-/* .Login__form--radio {
-  width: 0;
-  height: 0;
-} */
-
-.Login__form--radio-layout {
-  height: 5rem;
-}
-
-[type=radio] { 
+input[type=radio] { 
   position: absolute;
-  opacity: 0;
-  width: 0;
-  height: 0;
+  left: -9000rem;
 }
 
-/* CHECKED STYLES */
-[type=radio]:checked + span {
+input[type=radio]:checked + span {
   outline: 1px solid #f00;
+}
+
+form {
+  @apply text-center mt-10;
+}
+
+.box {
+  top: -1.8rem;
+  font-size: 0.5rem;
+  font-family: "Pokemon GB", Arial, sans-serif;
+  border-radius: 0.125rem;
+  padding: 0.5rem;
+  text-align: center;
+
+  width: 20rem;
+  min-height: 2rem;
+  line-height: 1rem;
+  margin: auto;
+  background: white;
+  border: 1px solid white;
+  box-shadow: 0 1px 0 1px black,
+              inset 0 1px 0 1px black,
+              0 0 0 1px black,
+              inset 0 0 0 1px black;
+}
+
+input[type="text"] {
+  @apply w-full outline-none leading-normal h-5 overflow-visible p-4;
+  font-size: 0.5rem;
+  box-sizing: border-box;
+}
+
+input[type="text"]::placeholder {
+  @apply overflow-visible;
+}
+
+.Title {
+  font-size: 1rem;
+  padding: 1rem;
+}
+
+label {
+  font-family: "Pokemon GB", Arial, sans-serif;
+  @apply block m-5;
+}
+
+.Character__label {
+  display: inline-block;
+}
+
+button.box {
+  width: 10rem;
+  border: 0px;
+  box-shadow: 0 1px 0 1px black,
+              inset 0 1px 0 1px black,
+              0 0 0 1px black,
+              inset 0 0 0 1px black;
+}
+
+button.box:hover {
+  @apply bg-gray-200;
 }
 </style>
