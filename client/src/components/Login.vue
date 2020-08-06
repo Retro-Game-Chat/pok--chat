@@ -1,26 +1,24 @@
 <template>
   <div class="Login">
     <form class="Login__form">
-      <div class="flex flex-wrap -mx-3 mb-6">
-        <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-          <label class="Login__form--name-label" for="grid-name">
-            Name
-          </label>
-          <input class="Login__form--name-input" :class="{ 'border-red-500': errors.length }" id="grid-name" type="text" ref="name" placeholder="Luke" v-model="name">
-          <p v-for="(error, index) in errors" :key="`error-${index}`" class="text-red-500 text-xs italic">{{ error }}</p>
-        </div>
+      <div class="Login__form--name-layout w-full">
+        <label class="Login__form--name-label" for="grid-name">
+          Name
+        </label>
+        <input class="Login__form--name-input" :class="{ 'border-red-500': errors.length }" id="grid-name" type="text" ref="name" placeholder="Luke" v-model="name">
+        <p v-for="(error, index) in errors" :key="`error-${index}`" class="text-red-500 text-xs italic">{{ error }}</p>
       </div>
-      <div class="flex flex-wrap -mx-3 mb-2">
-        <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+      <div class="Login__form--version-layout">
+        <div class="w-full">
           <label class="Login__form--version-label" for="grid-version">
             Version
           </label>
-          <div class="relative">	
+          <div class="relative">
             <label for="red">
               <input type="radio"
                     id="red"
                     value="Red"
-                    v-model="versionOption"> Red
+                    v-model="versionOption">  Red
             </label>
             <label for="blue">
               <input type="radio"
@@ -34,7 +32,7 @@
 
       <div class="md:flex md:items-center">
         <div class="md:w-2/3">
-          <button class="Login__button" type="button" @click.prevent="submitted">
+          <button class="Login__form--button" type="button" @click.prevent="submitted">
             Sign Up
           </button>
         </div>
@@ -102,6 +100,7 @@ export default {
 <style scoped>
 .Login {
   @apply flex w-full h-full justify-center items-center;
+  margin-top: 5rem;
 }
 
 .Login__form {
@@ -124,15 +123,20 @@ export default {
   @apply block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2
 }
 
-.Login__button {
+.Login__form--button {
   @apply shadow bg-purple-500 text-white font-bold py-2 px-4 rounded
 }
 
-.Login__button:hover {
+.Login__form--button:hover {
   @apply bg-purple-400
 }
 
-.Login__button:focus {
+.Login__form--button:focus {
   @apply shadow-outline outline-none
+}
+
+.Login__form--name-layout
+.Login__form--version-layout {
+  @apply flex flex-wrap -mx-3 mb-2
 }
 </style>
