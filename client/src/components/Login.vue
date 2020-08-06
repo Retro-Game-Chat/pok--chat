@@ -1,19 +1,19 @@
 <template>
   <div class="Login">
-    <form class="Login--form">
+    <form class="Login__form">
       <div class="flex flex-wrap -mx-3 mb-6">
         <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-          <label class="Login--form-name-label" for="grid-name">
+          <label class="Login__form--name-label" for="grid-name">
             Name
           </label>
-          <input class="Login--form-name-input" :class="{ 'border-red-500': errors.length }" id="grid-name" type="text" ref="name" placeholder="Luke" v-model="name">
+          <input class="Login__form--name-input" :class="{ 'border-red-500': errors.length }" id="grid-name" type="text" ref="name" placeholder="Luke" v-model="name">
           <p v-for="(error, index) in errors" :key="`error-${index}`" class="text-red-500 text-xs italic">{{ error }}</p>
         </div>
       </div>
       <div class="flex flex-wrap -mx-3 mb-2">
         <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-          <label class="Login--form-version-label" for="grid-version">
-              Version
+          <label class="Login__form--version-label" for="grid-version">
+            Version
           </label>
           <div class="relative">	
             <label for="red">
@@ -34,7 +34,7 @@
 
       <div class="md:flex md:items-center">
         <div class="md:w-2/3">
-          <button class="Login--button" type="button" @click.prevent="submitted">
+          <button class="Login__button" type="button" @click.prevent="submitted">
             Sign Up
           </button>
         </div>
@@ -104,35 +104,35 @@ export default {
   @apply flex w-full h-full justify-center items-center;
 }
 
-.Login--form {
+.Login__form {
   @apply w-full max-w-lg
 }
 
-.Login--form-name-label {
+.Login__form--name-label {
   @apply block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2
 }
 
-.Login--form-name-input {
+.Login__form--name-input {
   @apply appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight
 }
 
-.Login--form-name-input:focus {
+.Login__form--name-input:focus {
   @apply outline-none bg-white
 }
 
-.Login--form-version-label {
+.Login__form--version-label {
   @apply block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2
 }
 
-.Login--button {
+.Login__button {
   @apply shadow bg-purple-500 text-white font-bold py-2 px-4 rounded
 }
 
-.Login--button:hover {
+.Login__button:hover {
   @apply bg-purple-400
 }
 
-.Login--button:focus {
+.Login__button:focus {
   @apply shadow-outline outline-none
 }
 </style>
