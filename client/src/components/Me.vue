@@ -72,6 +72,10 @@ export default {
   },
 
   props: {
+    conversation: {
+      type: Object,
+      required: true
+    },
     me: {
       type: Object,
       required: true
@@ -79,19 +83,22 @@ export default {
   },
   
   mounted() {
-    window.addEventListener('keydown', this.listenWillMove)
-    window.addEventListener('keydown', this.listenLook)
     window.addEventListener('keyup', this.listenMove)
   },
 
   beforeDestroy() {
-    window.removeEventListener('keydown', this.listenWillMove)
-    window.removeEventListener('keydown', this.listenLook)
     window.removeEventListener('keyup', this.listenMove)
   },
 
   methods: {
     moved() {
+      this.conversation
+        .sendCustomEvent({ type: 'moving', body: this.me})
+        .then(() => {
+          console.log('custom event was sent')
+        })
+        .catch(console.error)
+      
       if (!this.syncing) {
         this.syncing = true
 
@@ -107,34 +114,6 @@ export default {
         }, 5000)
       }
     },
-  
-    listenTyping(e) {
-      if (!this.typing) {
-        // don't block built in commands like Cmd+R
-        if (!e.metaKey && !e.shiftKey && !e.ctrlKey && !e.altKey) {
-          e.preventDefault()
-        }
-
-        // press Y to chat
-        if (e.which === 89) {
-          this.typing = true
-        }
-      } else {
-        if (e.which === 27) {
-          this.typing = false
-        }
-      }
-    },
-
-    listenWillMove(e) {
-      if (!this.typing) {
-        const action = keys[e.which]
-
-        if (action) {
-          this.me.data.moving = true
-        }
-      }
-    },
 
     listenMove(e) {
       if (!this.typing) {
@@ -144,16 +123,6 @@ export default {
           action.do(this.me)
           this.me.data.moving = false
           this.moved()
-        }
-      }
-    },
-
-    listenLook(e) {
-      if (!this.typing) {
-        const action = keys[e.which]
-
-        if (action) {
-          this.me.data.direction = action.name
         }
       }
     },

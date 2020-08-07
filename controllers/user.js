@@ -17,8 +17,6 @@ exports.login = (req, res, next) => {
     display_name: JSON.stringify({
       name: req.body.name,
       color: req.body.color,
-      direction: 'left',
-      moving: false,
       x: 19,
       y: -1
     }),

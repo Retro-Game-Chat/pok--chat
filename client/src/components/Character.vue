@@ -3,12 +3,12 @@
     class="Character Tooltip"
     :class="[
       `Character--${character.data.color || 'red'}`,
-      `Character--${character.data.direction || 'down'}`,
-      { 'Character--moving' : character.data.moving }
+      `Character--${direction}`,
+      { 'Character--moving' : moving }
     ]"
     :style="{
-      left: (character.data.x + 20) + 'rem',
-      top: (character.data.y + 9) + 'rem'
+      left: (x + 20) + 'rem',
+      top: (y + 9) + 'rem'
     }"
   >
     <span class="Character--tooltip Tooltip-text">{{ character.data.name }}</span>
@@ -23,6 +23,60 @@ export default {
     character: {
       type: Object,
       required: true
+    }
+  },
+
+  data() {
+    return {
+      direction: 'down',
+      moving: false,
+      x: null,
+      y: null
+    }
+  },
+
+  watch: {
+    character: {
+      immediate: true,
+      deep: true,
+      handler() {
+        const { x, y } = this.character.data;
+
+        if (this.x !== x || this.y !== y) {
+          this.moving = true
+        }
+
+        if (this.x === null) {
+          this.x = x;
+        }
+
+        if (this.y === null) {
+          this.y = y;
+        }
+
+        if (y < this.y) {
+          this.direction = 'up';
+        }
+
+        if (y > this.y) {
+          this.direction = 'down';
+        }
+
+        if (x > this.x) {
+          this.direction = 'right';
+        }
+
+        if (x < this.x) {
+          this.direction = 'left';
+        }
+
+        this.x = x;
+        this.y = y;
+
+        setTimeout(() => {
+            this.moving = false
+        }, 100)
+      }
     }
   }
 }
