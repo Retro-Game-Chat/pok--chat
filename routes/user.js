@@ -1,4 +1,5 @@
-// routes/server.js
+// routes/user.js
+
 var express = require('express');
 var router = express.Router();
 

@@ -111,7 +111,7 @@ export default {
   },
 
   beforeDestroy() {
-    window.removeEventListener('keydown', this.shortcuts);
+    window.removeEventListener('keydown', this.shortcuts)
   },
 
   methods: {

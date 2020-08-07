@@ -1,9 +1,9 @@
 <template>
   <div class="PlaySpace">
     <div class="PlayBox" v-if="!!conversation">
-      <Characters v-if="!!conversation" :conversation="conversation" :members="members" :me="me" />
+      <Characters v-if="!!conversation" :conversation="conversation" :me="me" />
       <ChatEntry v-if="!!conversation" :conversation="conversation" :typing="typing" />
-      <ChatBox v-if="!!conversation" :conversation="conversation" :members="members" />
+      <ChatBox v-if="!!conversation" :conversation="conversation" />
     </div>
     <template v-else>
       <Notice message="Loading..."/>
@@ -98,21 +98,10 @@ export default {
     return {
       app: null,
       conversation: null,
-      members: null,
       conversationId: conversation,
       typing: false,
       syncing: false,
       me,
-      characters: [
-        {
-          name: 'greg',
-          color: 'blue',
-          direction: 'left',
-          moving: false,
-          x: 19,
-          y: -1
-        }
-      ]
     }
   },
 
@@ -122,6 +111,13 @@ export default {
     } else {
       this.connect()
     }
+  },
+
+  beforeDestroy() {
+    window.removeEventListener('keydown', this.listenWillMove)
+    window.removeEventListener('keydown', this.listenTyping)
+    window.removeEventListener('keydown', this.listenLook)
+    window.removeEventListener('keyup', this.listenMove)
   },
 
   methods: {
@@ -157,9 +153,6 @@ export default {
           window.addEventListener('keydown', this.listenTyping)
           window.addEventListener('keydown', this.listenLook)
           window.addEventListener('keyup', this.listenMove)
-
-          console.log(conversation.members)
-          this.members = conversation.members
         })
         .catch(console.error)
     },

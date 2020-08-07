@@ -1,4 +1,4 @@
-// controllers/server.js
+// controllers/user.js
 
 const nexmo = require('../utils/nexmo');
 

@@ -26,10 +26,6 @@ export default {
       type: Object,
       required: true
     },
-    members: {
-      type: Map,
-      required: true
-    },
     me: {
       type: Object,
       required: true

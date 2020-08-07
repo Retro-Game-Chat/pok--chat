@@ -1,13 +1,13 @@
 <template>
   <div class="PokéBox PokéBox__ChatBox">
     <ul id="ChatBox">
-      <li class="mb-2">Welcome to <strong>Route 11</strong> chat!</li>
+      <li class="mb-2">Welcome to <strong>{{ conversation.display_name }}</strong> chat!</li>
       <li v-for="event in events" v-bind:key="'event' + event.id">
         <div v-if="event.type === 'text'">
-          <strong>{{ name(members.get(event.from).display_name) }}</strong>: {{ event.body.text }}
+          <strong>{{ event.from }}</strong>: {{ event.body.text }}
         </div>
         <div v-else-if="event.type === 'member:joined'">
-          <strong>{{ name(event.body.user.display_name) }}</strong> has joined <strong>#{{ event.conversation.display_name }}</strong>.
+          <strong>{{ event.from }}</strong> has joined <strong>{{ event.conversation.display_name }}</strong> chat!.
         </div>
       </li>
       <li> </li>
@@ -24,11 +24,7 @@ export default {
     conversation: {
       type: Object,
       required: true
-    },
-    members: {
-      type: Map,
-      required: true
-    },
+    }
   },
 
   data () {
@@ -42,9 +38,6 @@ export default {
   },
 
   methods: {
-    name(data) {
-      return JSON.parse(data).name
-    },
     registerListeners () {
       const { conversation } = this.$props
 

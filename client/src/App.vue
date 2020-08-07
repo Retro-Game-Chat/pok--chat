@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <div class="AppSpace">
       <TitleBox />
+    <div class="AppSpace">
       <router-view v-if="!!server.status && server.status === 'ok'" />
       <template v-else>
         <Notice message="Connecting..."/>
@@ -42,13 +42,13 @@ export default {
 
 <style>
 #app {
-  @apply w-full h-full mt-4 flex justify-center;
+  @apply w-full h-full mt-4 flex flex-col items-center;
 }
 
 .AppSpace {
-  @apply text-gray-600 antialiased;
-  background: url('~@/assets/images/route11.png') no-repeat 0rem 3.5rem;
+  @apply text-gray-600 antialiased border border-black;
+  background: url('~@/assets/images/route11.png') no-repeat;
   width: 40rem;
-  height: 21.5rem;
+  height: 18rem;
 }
 </style>
