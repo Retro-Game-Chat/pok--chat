@@ -13,6 +13,7 @@ import Characters from '@/components/Characters'
 import ChatBox from '@/components/ChatBox'
 import ChatEntry from '@/components/ChatEntry'
 import Client from 'nexmo-client'
+import UserService from '@/services/User'
 
 const move = {
   up: (character) => {
@@ -104,6 +105,7 @@ export default {
       members: null,
       conversationId: conversation,
       typing: false,
+      syncing: false,
       me: {
         ...user,
         ...startingPosition
@@ -132,6 +134,27 @@ export default {
   },
 
   methods: {
+    moved() {
+      const data = this.me.data;
+      data.x = this.me.x
+      data.y = this.me.y
+
+      if (!this.syncing) {
+        this.syncing = true
+
+        setTimeout(() => {
+          UserService
+            .sync({
+              user_id: this.me.user_id,
+              display_name: JSON.stringify(data)
+            })
+            .then(() => {
+              this.syncing = false
+            })
+        }, 5000)
+      }
+    },
+
     connect () {
       new Client()
         .login(this.me.token)
@@ -164,6 +187,7 @@ export default {
         }
       }
     },
+
     listenWillMove(e) {
       if (!this.typing) {
         const action = keys[e.which]
@@ -173,6 +197,7 @@ export default {
         }
       }
     },
+
     listenMove(e) {
       if (!this.typing) {
         const action = keys[e.which]
@@ -180,6 +205,7 @@ export default {
         if (action) {
           action.do(this.me)
           this.me.moving = false
+          this.moved()
         }
       }
     },

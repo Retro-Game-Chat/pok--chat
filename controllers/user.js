@@ -2,14 +2,13 @@
 
 const nexmo = require('../utils/nexmo');
 
-exports.login = function(req, res, next) {
+exports.login = (req, res, next) => {
   const { 
-    VONAGE_PRIVATE_KEY_PATH: privateKeyPath,
     VONAGE_APPLICATION_ID: applicationId,
     VONAGE_DEFAULT_CONVERSATION_ID :conversationId
   } = process.env;
 
-  const response = {
+  const result = {
     conversation: conversationId
   }
 
@@ -56,9 +55,19 @@ exports.login = function(req, res, next) {
           acl: aclPaths
         })
 
-        response.member = member;
-        res.json(response);
+        result.member = member;
+        res.json(result);
       }
     );
+  });
+};
+
+exports.sync = (req, res, next) => {
+  const { user_id, ...options } = req.body;
+
+  nexmo.users.update(user_id, options, (err, result) => {
+    if (!err) {
+      res.json(result)
+    }
   });
 };

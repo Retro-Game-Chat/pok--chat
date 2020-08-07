@@ -10,6 +10,7 @@
       type="text"
       ref="name"
       v-model="name"
+      autocomplete="off"
     >
     <ul v-if="errors.length > 0" class="LoginForm__Errors">
       <li
