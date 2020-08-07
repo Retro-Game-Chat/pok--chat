@@ -8,7 +8,8 @@
     "dev": "concurrently --kill-others-on-fail 'npm run dev:server' 'npm run dev:client'",
     "prestart": "cd client && npm run build",
     "start": "node ./bin/www",
-    "postinstall": "cd client && npm install"
+    "postinstall": "cd client && npm install",
+    "heroku-prebuild": "npm install -g @vue/cli-service"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
