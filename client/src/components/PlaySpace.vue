@@ -1,7 +1,7 @@
 <template>
   <div class="PlaySpace">
     <div class="PlayBox" v-if="!!conversation">
-      <Characters :characters="characters" :me="me" />
+      <Characters v-if="!!conversation" :conversation="conversation" :members="members" :me="me" />
       <ChatEntry v-if="!!conversation" :conversation="conversation" :typing="typing" />
       <ChatBox v-if="!!conversation" :conversation="conversation" :members="members" />
     </div>
@@ -221,6 +221,6 @@ export default {
 .PlayBox {
   width: 40rem;
   height: 18rem;
-  @apply relative border border-black flex justify-center items-center;
+  @apply relative flex justify-center items-center;
 }
 </style>

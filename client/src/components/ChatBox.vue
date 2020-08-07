@@ -25,18 +25,15 @@ export default {
       type: Object,
       required: true
     },
+    members: {
+      type: Map,
+      required: true
+    },
   },
 
   data () {
-    let members = new Map()
-
-    if (this.conversation) {
-      members = this.conversation.members
-    }
-
     return {
-      events: [],
-      members
+      events: []
     }
   },
 

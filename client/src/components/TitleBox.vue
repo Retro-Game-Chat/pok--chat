@@ -1,5 +1,5 @@
 <template>
-  <div class="PokéBox PokéBox__TitleBox">PokéChat!</div>
+  <div class="PokéBox PokéBox__TitleBox"><a href="/">PokéChat!</a></div>
 </template>
 
 <script>

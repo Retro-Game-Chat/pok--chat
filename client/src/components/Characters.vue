@@ -22,9 +22,13 @@ export default {
   },
 
   props: {
-    characters: {
-      type: Array,
-      default: () => ([])
+    conversation: {
+      type: Object,
+      required: true
+    },
+    members: {
+      type: Map,
+      required: true
     },
     me: {
       type: Object,
