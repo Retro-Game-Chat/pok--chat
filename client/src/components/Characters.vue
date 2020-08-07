@@ -5,20 +5,20 @@
       :key="index"
       :character="character"
     /> -->
-    <Character
-      :character="me"
-    />
+    <Me :me="me" :conversation="conversation"/>
   </div>
 </template>
 
 <script>
-import Character from '@/components/Character.vue'
+// import Character from '@/components/Character.vue'
+import Me from '@/components/Me.vue'
 
 export default {
   name: 'Characters',
 
   components: {
-    Character
+    // Character,
+    Me
   },
 
   props: {
@@ -30,6 +30,6 @@ export default {
       type: Object,
       required: true
     }
-  }
+  },
 }
 </script>

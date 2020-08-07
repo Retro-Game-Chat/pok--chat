@@ -152,7 +152,8 @@ export default {
 
 <style scoped>
 .LoginForm {
-  @apply flex flex-col w-64 mt-20;
+  @apply flex flex-col w-64;
+  margin-top: 3.5rem
 }
 
 .LoginForm__Input {
