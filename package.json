@@ -9,7 +9,7 @@
     "prestart": "npm run build --prefix client",
     "start": "node ./bin/www",
     "postinstall": "npm install --prefix client",
-    "heroku-prebuild": "npm install -g @vue/cli-service @vue/cli-plugin-babel"
+    "heroku-prebuild": "npm install -g @vue/cli-service @vue/cli-plugin-babel @vue/cli-plugin-eslint @vue/cli-plugin-router"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
