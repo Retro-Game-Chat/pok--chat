@@ -15,10 +15,12 @@ exports.login = (req, res, next) => {
   nexmo.users.create({
     name: `${req.body.name}-${Date.now()}`,
     display_name: JSON.stringify({
-      n: req.body.name,
-      s: req.body.version,
-      x: 0,
-      y: 0
+      name: req.body.name,
+      color: req.body.color,
+      direction: 'left',
+      moving: false,
+      x: 19,
+      y: -1
     }),
   }, (err, user) => {
     nexmo.conversations.members.create(

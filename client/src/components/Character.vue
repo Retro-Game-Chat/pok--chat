@@ -2,16 +2,16 @@
   <div 
     class="Character Tooltip"
     :class="[
-      `Character--${character.color || 'red'}`,
-      `Character--${character.direction || 'down'}`,
-      { 'Character--moving' : character.moving }
+      `Character--${character.data.color || 'red'}`,
+      `Character--${character.data.direction || 'down'}`,
+      { 'Character--moving' : character.data.moving }
     ]"
     :style="{
-      left: (character.x + 20) + 'rem',
-      top: (character.y + 9) + 'rem'
+      left: (character.data.x + 20) + 'rem',
+      top: (character.data.y + 9) + 'rem'
     }"
   >
-    <span class="Character--tooltip Tooltip-text">{{ character.name }}</span>
+    <span class="Character--tooltip Tooltip-text">{{ character.data.name }}</span>
   </div>
 </template>
 

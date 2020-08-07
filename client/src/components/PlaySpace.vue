@@ -1,6 +1,6 @@
 <template>
   <div class="PlaySpace">
-    <div class="PlayBox">
+    <div class="PlayBox" v-if="!!me">
       <Characters :characters="characters" :me="me" />
       <ChatEntry v-if="!!conversation" :conversation="conversation" :typing="typing" />
       <ChatBox v-if="!!conversation" :conversation="conversation" :members="members" />
@@ -17,23 +17,23 @@ import UserService from '@/services/User'
 
 const move = {
   up: (character) => {
-    if (character.y > -9) {
-      character.y -= 1
+    if (character.data.y > -9) {
+      character.data.y -= 1
     }
   },
   down: (character) => {
-    if (character.y < 8) {
-      character.y += 1
+    if (character.data.y < 8) {
+      character.data.y += 1
     }
   },
   left: (character) => {
-    if (character.x > -20) {
-      character.x -= 1
+    if (character.data.x > -20) {
+      character.data.x -= 1
     }
   },
   right: (character) => {
-    if (character.x < 19) {
-      character.x += 1
+    if (character.data.x < 19) {
+      character.data.x += 1
     }
   }
 }
@@ -73,13 +73,6 @@ const keys = {
   }
 }
 
-const startingPosition = {
-  direction: 'left',
-  moving: false,
-  x: 19,
-  y: -1
-}
-
 export default {
   name: 'PlaySpace',
 
@@ -90,13 +83,10 @@ export default {
   },
 
   data () {
-    const { member: user, conversation } = this.$route.params
+    const { member: me, conversation } = this.$route.params
 
     if (this.$route.params.member ) {
-      user.data = JSON.parse(user.display_name)
-      user.unique_name = user.name
-      user.name = user.data.n
-      user.color = user.data.s
+      me.data = JSON.parse(me.display_name)
     }
 
     return {
@@ -106,22 +96,22 @@ export default {
       conversationId: conversation,
       typing: false,
       syncing: false,
-      me: {
-        ...user,
-        ...startingPosition
-      },
+      me,
       characters: [
         {
           name: 'greg',
           color: 'blue',
-          ...startingPosition
+          direction: 'left',
+          moving: false,
+          x: 19,
+          y: -1
         }
       ]
     }
   },
 
   created() {
-    if (this.me.token === undefined) {
+    if (this.me === undefined) {
       this.$router.push({ name: 'Login' })
     } else {
       this.connect()
@@ -135,10 +125,6 @@ export default {
 
   methods: {
     moved() {
-      const data = this.me.data;
-      data.x = this.me.x
-      data.y = this.me.y
-
       if (!this.syncing) {
         this.syncing = true
 
@@ -146,7 +132,7 @@ export default {
           UserService
             .sync({
               user_id: this.me.user_id,
-              display_name: JSON.stringify(data)
+              display_name: JSON.stringify(this.me.data)
             })
             .then(() => {
               this.syncing = false
@@ -193,7 +179,7 @@ export default {
         const action = keys[e.which]
 
         if (action) {
-          this.me.moving = true
+          this.me.data.moving = true
         }
       }
     },
@@ -204,17 +190,18 @@ export default {
 
         if (action) {
           action.do(this.me)
-          this.me.moving = false
+          this.me.data.moving = false
           this.moved()
         }
       }
     },
+
     listenLook(e) {
       if (!this.typing) {
         const action = keys[e.which]
 
         if (action) {
-          this.me.direction = action.name
+          this.me.data.direction = action.name
         }
       }
     },
