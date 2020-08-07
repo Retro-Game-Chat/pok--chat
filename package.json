@@ -4,11 +4,11 @@
   "private": true,
   "scripts": {
     "dev:server": "nodemon ./bin/www",
-    "dev:client": "cd client && npm run serve",
+    "dev:client": "npm run serve --prefix client",
     "dev": "concurrently --kill-others-on-fail 'npm run dev:server' 'npm run dev:client'",
-    "prestart": "cd client && npm run build",
+    "prestart": "npm run build --prefix client",
     "start": "node ./bin/www",
-    "postinstall": "cd client && npm install",
+    "postinstall": "npm install --prefix client",
     "heroku-prebuild": "npm install -g @vue/cli-service @vue/cli-plugin-babel"
   },
   "dependencies": {
@@ -21,6 +21,6 @@
   },
   "devDependencies": {
     "concurrently": "^5.2.0",
-    "nodemon": "^2.0.4",
+    "nodemon": "^2.0.4"
   }
 }
