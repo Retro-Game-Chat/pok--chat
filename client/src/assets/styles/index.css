@@ -4,13 +4,12 @@
 
 @font-face {
   font-family: "Pokemon GB";
-  src: url('~@/assets/fonts/pokemon-gb/PokemonGb-RAeo.ttf') format("truetype");
+  src: url('../fonts/pokemon-gb/PokemonGb-RAeo.ttf') format("truetype");
   font-weight: normal;
   font-style: normal;
-  font-display: optional;
 }
 
-body {
+body, html {
   font-family: "Pokemon GB", Georgia, serif;
 }
 

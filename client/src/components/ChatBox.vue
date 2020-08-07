@@ -1,7 +1,7 @@
 <template>
   <div class="PokéBox PokéBox__ChatBox">
     <ul id="ChatBox">
-      <li>Welcome to <strong>Route 11</strong> chat!</li>
+      <li class="mb-2">Welcome to <strong>Route 11</strong> chat!</li>
       <li v-for="event in events" v-bind:key="'event' + event.id">
         <div v-if="event.type === 'text'">
           <strong>{{ name(members.get(event.from).display_name) }}</strong>: {{ event.body.text }}
@@ -46,7 +46,7 @@ export default {
 
   methods: {
     name(data) {
-      return JSON.parse(data).n
+      return JSON.parse(data).name
     },
     registerListeners () {
       const { conversation } = this.$props

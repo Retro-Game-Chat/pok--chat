@@ -1,10 +1,13 @@
 <template>
   <div class="PlaySpace">
-    <div class="PlayBox" v-if="!!me">
+    <div class="PlayBox" v-if="!!conversation">
       <Characters :characters="characters" :me="me" />
       <ChatEntry v-if="!!conversation" :conversation="conversation" :typing="typing" />
       <ChatBox v-if="!!conversation" :conversation="conversation" :members="members" />
     </div>
+    <template v-else>
+      <Notice message="Loading..."/>
+    </template>
   </div>
 </template>
 
@@ -12,6 +15,8 @@
 import Characters from '@/components/Characters'
 import ChatBox from '@/components/ChatBox'
 import ChatEntry from '@/components/ChatEntry'
+import Notice from '@/components/Notice.vue'
+
 import Client from 'nexmo-client'
 import UserService from '@/services/User'
 
@@ -79,7 +84,8 @@ export default {
   components: {
     Characters,
     ChatBox,
-    ChatEntry
+    ChatEntry,
+    Notice
   },
 
   data () {
@@ -116,11 +122,6 @@ export default {
     } else {
       this.connect()
     }
-
-    window.addEventListener('keydown', this.listenWillMove)
-    window.addEventListener('keydown', this.listenTyping)
-    window.addEventListener('keydown', this.listenLook)
-    window.addEventListener('keyup', this.listenMove)
   },
 
   methods: {
@@ -151,6 +152,13 @@ export default {
         })
         .then((conversation) => {
           this.conversation = conversation
+
+          window.addEventListener('keydown', this.listenWillMove)
+          window.addEventListener('keydown', this.listenTyping)
+          window.addEventListener('keydown', this.listenLook)
+          window.addEventListener('keyup', this.listenMove)
+
+          console.log(conversation.members)
           this.members = conversation.members
         })
         .catch(console.error)

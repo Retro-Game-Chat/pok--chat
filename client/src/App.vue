@@ -4,21 +4,21 @@
       <TitleBox />
       <router-view v-if="!!server.status && server.status === 'ok'" />
       <template v-else>
-        <Connecting message="Connecting..."/>
+        <Notice message="Connecting..."/>
       </template>
     </div>
   </div>
 </template>
 
 <script>
-import Connecting from '@/components/Connecting.vue'
+import Notice from '@/components/Notice.vue'
 import TitleBox from '@/components/TitleBox'
 import ServerService from '@/services/Server'
 
 export default {
   name: 'App',
   components: {
-    Connecting,
+    Notice,
     TitleBox
   },
   data () {
