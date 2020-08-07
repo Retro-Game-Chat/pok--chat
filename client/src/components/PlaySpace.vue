@@ -54,9 +54,9 @@ export default {
     }
   },
 
-  // beforeDestroy() {
-  //   window.removeEventListener('keydown', this.listenTyping)
-  // },
+  beforeDestroy() {
+    window.removeEventListener('keydown', this.listenTyping)
+  },
 
   methods: {
     connect () {
@@ -70,28 +70,28 @@ export default {
         .then((conversation) => {
           this.conversation = conversation
 
-          // window.addEventListener('keydown', this.listenTyping)
+          window.addEventListener('keydown', this.listenTyping)
         })
         .catch(console.error)
     },
 
-    // listenTyping(e) {
-    //   if (!this.typing) {
-    //     // don't block built in commands like Cmd+R
-    //     if (!e.metaKey && !e.shiftKey && !e.ctrlKey && !e.altKey) {
-    //       e.preventDefault()
-    //     }
+    listenTyping(e) {
+      if (!this.typing) {
+        // don't block built in commands like Cmd+R
+        if (!e.metaKey && !e.shiftKey && !e.ctrlKey && !e.altKey) {
+          e.preventDefault()
+        }
 
-    //     // press Y to chat
-    //     if (e.which === 89) {
-    //       this.typing = true
-    //     }
-    //   } else {
-    //     if (e.which === 27) {
-    //       this.typing = false
-    //     }
-    //   }
-    // },
+        // press Y to chat
+        if (e.which === 89) {
+          this.typing = true
+        }
+      } else {
+        if (e.which === 27) {
+          this.typing = false
+        }
+      }
+    },
   }
 }
 </script>

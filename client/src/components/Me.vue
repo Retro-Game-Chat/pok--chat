@@ -4,7 +4,7 @@
 
 <script>
 import Character from '@/components/Character.vue'
-import UserService from '@/services/User'
+// import UserService from '@/services/User'
 
 const move = {
   up: (character) => {
@@ -81,6 +81,12 @@ export default {
       required: true
     }
   },
+
+  data() {
+    return {
+      lastUpdate: null
+    }
+  },
   
   mounted() {
     window.addEventListener('keyup', this.listenMove)
@@ -91,30 +97,6 @@ export default {
   },
 
   methods: {
-    moved() {
-      this.conversation
-        .sendCustomEvent({ type: 'moving', body: this.me})
-        .then(() => {
-          console.log('custom event was sent')
-        })
-        .catch(console.error)
-      
-      if (!this.syncing) {
-        this.syncing = true
-
-        setTimeout(() => {
-          UserService
-            .sync({
-              user_id: this.me.user_id,
-              display_name: JSON.stringify(this.me.data)
-            })
-            .then(() => {
-              this.syncing = false
-            })
-        }, 5000)
-      }
-    },
-
     listenMove(e) {
       if (!this.typing) {
         const action = keys[e.which]
@@ -122,7 +104,18 @@ export default {
         if (action) {
           action.do(this.me)
           this.me.data.moving = false
-          this.moved()
+
+          this.conversation
+            .sendCustomEvent({ 
+              type: 'character:move', 
+              body: { 
+                id: this.me.id,
+                data: this.me.data
+              }
+            })
+            .then((event) => {
+              this.lastUpdate = event.timestamp;
+            });
         }
       }
     },
