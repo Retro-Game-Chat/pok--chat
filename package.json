@@ -1,26 +1,47 @@
 {
-  "name": "poke--chat",
-  "version": "0.0.0",
+  "name": "poke-chat",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev:server": "nodemon ./bin/www",
-    "dev:client": "npm run serve --prefix client",
-    "dev": "concurrently --kill-others-on-fail 'npm run dev:server' 'npm run dev:client'",
-    "prestart": "npm run build --prefix client",
-    "start": "node ./bin/www",
-    "postinstall": "npm install --prefix client",
-    "heroku-prebuild": "npm install -g @vue/cli"
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "cookie-parser": "~1.4.4",
-    "debug": "~2.6.9",
-    "dotenv": "^8.2.0",
-    "express": "~4.16.1",
-    "morgan": "~1.9.1",
-    "nexmo": "^2.7.0-beta-1"
+    "axios": "^0.19.2",
+    "core-js": "^3.6.5",
+    "nexmo-client": "^6.0.2-beta",
+    "tailwindcss": "^1.6.2",
+    "vue": "^2.6.11",
+    "vue-router": "^3.2.0"
   },
   "devDependencies": {
-    "concurrently": "^5.2.0",
-    "nodemon": "^2.0.4"
-  }
+    "@vue/cli-plugin-babel": "~4.4.0",
+    "@vue/cli-plugin-eslint": "~4.4.0",
+    "@vue/cli-plugin-router": "^4.4.6",
+    "@vue/cli-service": "~4.4.0",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^6.7.2",
+    "eslint-plugin-vue": "^6.2.2",
+    "vue-template-compiler": "^2.6.11"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended"
+    ],
+    "parserOptions": {
+      "parser": "babel-eslint"
+    },
+    "rules": {}
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
 }
