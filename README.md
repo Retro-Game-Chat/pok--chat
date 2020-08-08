@@ -37,3 +37,5 @@ npm run build
 ```
 npm run lint
 ```
+
+![Multiplayer Chat](https://media.giphy.com/media/iiPk2wggLLVpmJDyyt/giphy.gif)
