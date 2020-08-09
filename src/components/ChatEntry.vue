@@ -11,7 +11,7 @@
       @keyup.enter.exact="sendMessage"
     />
     <button class="ChatEntry__Action" type="button" @click.prevent="sendMessage">
-      ⏎ to send
+      ↵ to send
     </button>
   </div>
 </template>

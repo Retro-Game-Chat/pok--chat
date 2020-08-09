@@ -12,7 +12,7 @@
       </li>
       <li> </li>
     </ul>
-    <p class="ChatBox__Notice">Press Y to chat.</p>
+    <p class="ChatBox__Notice"><span class="Notice__Key">Y</span> to chat / <span class="Notice__Key">Esc</span> to close chat / <span class="Notice__Key">↵</span> to send msg.</p>
   </div>
 </template>
 
@@ -43,12 +43,14 @@ export default {
 
       conversation.on('text', (user, event) => {
         this.events.push(event)
+        console.log(event)
 
         this.scrollChat()
       })
 
       conversation.on("member:joined", (user, event) => {
         this.events.push(event)
+        console.log(event)
 
         this.scrollChat()
       })
@@ -81,8 +83,13 @@ export default {
 }
 
 .ChatBox__Notice {
-  position: absolute;
+  @apply absolute mb-1;
   right: 0.5rem;
   bottom: 0;
+  font-size: 0.4rem;
+}
+
+.Notice__Key {
+  @apply border p-1 font-bold;
 }
 </style>

@@ -3,14 +3,19 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: "Pokemon GB";
-  src: url('../fonts/pokemon-gb/PokemonGb-RAeo.ttf') format("truetype");
-  font-weight: normal;
-  font-style: normal;
+  font-family: 'pokemon-font';
+  font-smooth: never;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  src: url('../fonts/pokemon-font/pokemon-font.eot');
+  src: url('../fonts/pokemon-font/pokemon-font.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/pokemon-font/pokemon-font.woff2') format('woff2'),
+       url('../fonts/pokemon-font/pokemon-font.woff') format('woff'),
+       url('../fonts/pokemon-font/pokemon-font.ttf')  format('truetype')
 }
 
 body, html {
-  font-family: "Pokemon GB", Georgia, serif;
+  font-family: "pokemon-font", monospace;
 }
 
 .PokéBox {

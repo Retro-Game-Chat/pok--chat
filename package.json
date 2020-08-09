@@ -11,6 +11,7 @@
     "axios": "^0.19.2",
     "core-js": "^3.6.5",
     "nexmo-client": "^6.0.2-beta",
+    "pokemon-font": "^1.8.1",
     "tailwindcss": "^1.6.2",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0"
