@@ -34,6 +34,7 @@ export default {
   },
 
   mounted () {
+    this.getEventHistory()
     this.registerListeners()
   },
 
@@ -49,17 +50,33 @@ export default {
 
       conversation.on('text', (user, event) => {
         this.events.push(event)
-        console.log(event)
 
         this.scrollChat()
       })
 
       conversation.on("member:joined", (user, event) => {
         this.events.push(event)
-        console.log(event)
 
         this.scrollChat()
       })
+    },
+
+
+    getEventHistory () {
+      const { conversation } = this.$props
+
+      conversation
+        .getEvents({ page_size: 25, order: 'desc' })
+        .then(eventsPage => {
+          eventsPage.items.forEach(event => {
+            if (['member:joined', 'text'].includes(event.type)) {
+              this.events.unshift(event)
+            }
+          })
+
+          this.scrollChat()
+        })
+        .catch(console.error)
     },
 
     scrollChat () {
