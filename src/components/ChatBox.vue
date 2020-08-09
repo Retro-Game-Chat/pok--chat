@@ -4,10 +4,10 @@
       <li class="mb-2">Welcome to <strong>{{ conversation.display_name }}</strong> chat!</li>
       <li v-for="event in events" v-bind:key="'event' + event.id">
         <div v-if="event.type === 'text'">
-          <strong>{{ event.from }}</strong>: {{ event.body.text }}
+          <strong>{{ member(event.from).data.name }}</strong>: {{ event.body.text }}
         </div>
         <div v-else-if="event.type === 'member:joined'">
-          <strong>{{ event.from }}</strong> has joined <strong>{{ event.conversation.display_name }}</strong> chat!.
+          <strong>{{ member(event.from).data.name }}</strong> has joined <strong>{{ event.conversation.display_name }}</strong> chat!.
         </div>
       </li>
       <li> </li>
@@ -37,6 +37,12 @@ export default {
     this.registerListeners()
   },
 
+  computed: {
+    members () {
+      return this.conversation.members
+    },
+  },
+
   methods: {
     registerListeners () {
       const { conversation } = this.$props
@@ -55,9 +61,17 @@ export default {
         this.scrollChat()
       })
     },
+
     scrollChat () {
       const chatBox = document.getElementById("ChatBox")
       chatBox.scrollTop = chatBox.scrollHeight;
+    },
+    
+    member (memberId) {
+      const member = this.members.get(memberId)
+      member.data = JSON.parse(member.display_name)
+
+      return member
     }
   }
 }
