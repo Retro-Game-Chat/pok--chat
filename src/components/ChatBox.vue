@@ -9,6 +9,9 @@
         <div v-else-if="event.type === 'member:joined'">
           <strong>{{ member(event.from).data.name }}</strong> has joined <strong>{{ event.conversation.display_name }}</strong> chat!.
         </div>
+        <div v-else-if="event.type === 'tip'">
+          Welcome to <strong>{{ conversation.display_name }}</strong> chat, <strong>{{ member(event.from).data.name }}</strong>. You can use <span class="Notice__Key">W</span>/<span class="Notice__Key">A</span>/<span class="Notice__Key">S</span>/<span class="Notice__Key">D</span> and the <span class="Notice__Key">arrow</span> keys to move around. Press <span class="Notice__Key">Y</span> to chat / <span class="Notice__Key">Esc</span> to close chat / <span class="Notice__Key">↵</span> to send msg.
+        </div>
       </li>
       <li> </li>
     </ul>
@@ -36,6 +39,7 @@ export default {
   mounted () {
     this.getEventHistory()
     this.registerListeners()
+    this.addTip()
   },
 
   computed: {
@@ -45,6 +49,13 @@ export default {
   },
 
   methods: {
+    addTip () {
+      this.events.push({
+        type: 'tip',
+        from: this.conversation.me.id
+      })
+    },
+
     registerListeners () {
       const { conversation } = this.$props
 
@@ -109,8 +120,9 @@ export default {
 }
 
 .PokéBox__ChatBox ul li {
+  @apply w-full block pt-1;
   min-height: 1rem;
-  @apply w-full block;
+  line-height: 1.4rem;
 }
 
 .ChatBox__Notice {
