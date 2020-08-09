@@ -78,8 +78,8 @@ export default {
 }
 
 .PokéBox__ChatBox ul li {
-  @apply h-4 w-full;
-  display: block;
+  min-height: 1rem;
+  @apply w-full block;
 }
 
 .ChatBox__Notice {
