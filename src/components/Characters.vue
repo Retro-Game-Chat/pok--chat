@@ -45,18 +45,40 @@ export default {
   },
 
   methods: {
+    addCharacter (object) {
+      const existingChar = this.everyone.findIndex(character => character.id == object.id)
+
+      if (existingChar < 0) {
+        this.everyone.push(object)
+      } else {
+        this.everyone[existingChar].data = object.data
+      }
+    },
+
     registerListeners () {
       const { conversation } = this.$props
 
       conversation.on('character:move', (from, event) => {
-        const existingChar = this.everyone.findIndex(character => character.id == event.body.id);
-
-        if (existingChar < 0) {
-          this.everyone.push(event.body)
-        } else {
-          this.everyone[existingChar].data = event.body.data
-        }
+        this.addCharacter(event.body)
       })
+
+      conversation.on("member:joined", (from) => {
+        const character = {
+          id: from.id,
+          data: JSON.parse(from.display_name)
+        }
+
+        this.addCharacter(character)
+      })
+
+      // conversation.on("text", (from) => {
+      //   const character = {
+      //     id: from.id,
+      //     data: JSON.parse(from.display_name)
+      //   }
+
+      //   this.addCharacter(character)
+      // })
     }
   },
 
