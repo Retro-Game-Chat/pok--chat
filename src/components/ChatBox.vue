@@ -44,43 +44,49 @@ export default {
 
   computed: {
     members () {
+      console.log(this.conversation.members)
       return this.conversation.members
     },
   },
 
   methods: {
     addTip () {
-      this.events.push({
-        type: 'tip',
-        from: this.conversation.me.id
-      })
+      // this.events.push({
+      //   type: 'tip',
+      //   from: this.conversation.me.id
+      // })
     },
 
     registerListeners () {
       const { conversation } = this.$props
 
       conversation.on('text', (user, event) => {
+        console.log(event)
+
         this.events.push(event)
 
         this.scrollChat()
       })
 
       conversation.on("member:joined", (user, event) => {
+        console.log(event)
+
         this.events.push(event)
 
         this.scrollChat()
       })
     },
 
-
     getEventHistory () {
       const { conversation } = this.$props
 
       conversation
-        .getEvents({ page_size: 25, order: 'desc' })
+        .getEvents({ page_size: 25, order: 'desc', event_type: 'text' })
         .then(eventsPage => {
           eventsPage.items.forEach(event => {
-            if (['member:joined', 'text'].includes(event.type)) {
+            console.log(event)
+
+            if (['text'].includes(event.type)) {
               this.events.unshift(event)
             }
           })
@@ -92,14 +98,17 @@ export default {
 
     scrollChat () {
       const chatBox = document.getElementById("ChatBox")
-      chatBox.scrollTop = chatBox.scrollHeight;
+      chatBox.scrollTop = chatBox.scrollHeight
     },
     
     member (memberId) {
       const member = this.members.get(memberId)
-      member.data = JSON.parse(member.display_name)
 
-      return member
+      if (member) {
+        member.data = JSON.parse(member.display_name)
+
+        return member
+      }
     }
   }
 }

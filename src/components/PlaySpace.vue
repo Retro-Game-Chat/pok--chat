@@ -2,8 +2,8 @@
   <div class="PlaySpace">
     <div class="PlayBox" v-if="!!conversation">
       <Characters v-if="!!conversation" :conversation="conversation" :me="me" />
-      <ChatEntry v-if="!!conversation" :conversation="conversation" :typing="typing" />
-      <ChatBox v-if="!!conversation" :conversation="conversation" />
+      <!-- <ChatEntry v-if="!!conversation" :conversation="conversation" :typing="typing" />
+      <ChatBox v-if="!!conversation" :conversation="conversation" /> -->
     </div>
     <template v-else>
       <Notice message="Loading..."/>
@@ -13,9 +13,9 @@
 
 <script>
 import Characters from '@/components/Characters'
-import ChatBox from '@/components/ChatBox'
-import ChatEntry from '@/components/ChatEntry'
-import Notice from '@/components/Notice.vue'
+// import ChatBox from '@/components/ChatBox'
+// import ChatEntry from '@/components/ChatEntry'
+import Notice from '@/components/Notice'
 
 import Client from 'nexmo-client'
 
@@ -24,8 +24,6 @@ export default {
 
   components: {
     Characters,
-    ChatBox,
-    ChatEntry,
     Notice
   },
 
@@ -54,9 +52,9 @@ export default {
     }
   },
 
-  beforeDestroy() {
-    window.removeEventListener('keydown', this.listenTyping)
-  },
+  // beforeDestroy() {
+  //   window.removeEventListener('keydown', this.listenTyping)
+  // },
 
   methods: {
     connect () {
@@ -75,23 +73,23 @@ export default {
         .catch(console.error)
     },
 
-    listenTyping(e) {
-      if (!this.typing) {
-        // don't block built in commands like Cmd+R
-        if (!e.metaKey && !e.shiftKey && !e.ctrlKey && !e.altKey) {
-          e.preventDefault()
-        }
+    // listenTyping(e) {
+    //   if (!this.typing) {
+    //     // don't block built in commands like Cmd+R
+    //     if (!e.metaKey && !e.shiftKey && !e.ctrlKey && !e.altKey) {
+    //       e.preventDefault()
+    //     }
 
-        // press Y to chat
-        if (e.which === 89) {
-          this.typing = true
-        }
-      } else {
-        if (e.which === 27) {
-          this.typing = false
-        }
-      }
-    },
+    //     // press Y to chat
+    //     if (e.which === 89) {
+    //       this.typing = true
+    //     }
+    //   } else {
+    //     if (e.which === 27) {
+    //       this.typing = false
+    //     }
+    //   }
+    // },
   }
 }
 </script>
