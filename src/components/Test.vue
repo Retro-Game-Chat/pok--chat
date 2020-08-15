@@ -1,6 +1,6 @@
 <template>
   <div class="PokéBox CharacterCustomisation">
-    <div class="w-1/3 h-auto my-auto" style="zoom:200%">
+    <div class="w-1/3 h-auto my-auto" style="zoom:250%">
       <div class="m-auto" :style="`width: 1rem; height: 1rem; background: no-repeat url('/artwork/gif/body/${body}.gif') 0rem 0rem`">
         <div :style="`width: 1rem; height: 1rem; background: no-repeat url('/artwork/gif/torso/${torso}.gif') 0rem 0rem`">
           <div :style="`width: 1rem; height: 1rem; background: no-repeat url('/artwork/gif/legs/${legs}.gif') 0rem 0rem`">
@@ -39,7 +39,7 @@
         >
         <button
           class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 text-center w-8 rounded-r"
-          @click.prevent="head = head+1"
+          @click.prevent="head = head+1 < headEnd ? head+1 : headEnd"
         >
           &gt;
         </button>
@@ -59,7 +59,7 @@
         >
         <button
           class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 text-center w-8 rounded-r"
-          @click.prevent="torso = torso+1"
+          @click.prevent="torso = torso+1 < torsoEnd ? torso+1 : torsoEnd"
         >
           &gt;
         </button>
@@ -79,7 +79,7 @@
         >
         <button
           class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 text-center w-8 rounded-r"
-          @click.prevent="legs = legs+1"
+          @click.prevent="legs = legs+1 < legsEnd ? legs+1 : legsEnd"
         >
           &gt;
         </button>
@@ -99,7 +99,7 @@
         >
         <button
           class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 text-center w-8 rounded-r"
-          @click.prevent="body = body+1"
+          @click.prevent="body = body+1 < bodyEnd ? body+1 : bodyEnd"
         >
           &gt;
         </button>
@@ -122,9 +122,13 @@ export default {
   data() {
     return {
       head: 1,
+      headEnd: 69,
       torso: 1,
+      torsoEnd: 2,
       legs: 1,
-      body: 1
+      legsEnd: 2,
+      body: 1,
+      bodyEnd: 6,
     }
   }
 }
