@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-      <TitleBox />
+    <TitleBox />
     <div class="AppSpace">
       <router-view v-if="!!server.status && server.status === 'ok'" />
       <template v-else>

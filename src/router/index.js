@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from '@/components/Login'
+import Test from '@/components/Test'
 import PlaySpace from '@/components/PlaySpace'
 
 Vue.use(VueRouter)
@@ -15,6 +16,11 @@ const routes = [
     path: '/',
     name: 'PlaySpace',
     component: PlaySpace
+  },
+  {
+    path: '/test',
+    name: 'Test',
+    component: Test
   }
 ]
 
