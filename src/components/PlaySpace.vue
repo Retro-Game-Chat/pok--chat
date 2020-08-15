@@ -5,6 +5,7 @@
       <!-- <ChatEntry v-if="!!conversation" :conversation="conversation" :typing="typing" />
       <ChatBox v-if="!!conversation" :conversation="conversation" /> -->
     </div>
+    <Chat v-if="!!conversation" :conversation="conversation" :me="me" />
     <template v-else>
       <Notice message="Loading..."/>
     </template>
@@ -13,6 +14,7 @@
 
 <script>
 import Characters from '@/components/Characters'
+import Chat from '@/components/Chat'
 // import ChatBox from '@/components/ChatBox'
 // import ChatEntry from '@/components/ChatEntry'
 import Notice from '@/components/Notice'
@@ -24,6 +26,7 @@ export default {
 
   components: {
     Characters,
+    Chat,
     Notice
   },
 
@@ -68,7 +71,6 @@ export default {
         .then((conversation) => {
           this.conversation = conversation
 
-          window.addEventListener('keydown', this.listenTyping)
         })
         .catch(console.error)
     },

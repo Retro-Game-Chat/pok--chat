@@ -24,3 +24,6 @@ pnpm-debug.log*
 # nexmo stuff
 .nexmo-app
 private.key
+
+# vscodee
+*.code-workspace

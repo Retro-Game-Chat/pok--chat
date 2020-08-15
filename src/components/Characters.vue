@@ -12,8 +12,8 @@
 </template>
 
 <script>
-import Character from '@/components/Character.vue'
-import Me from '@/components/Me.vue'
+import Character from '@/components/Character'
+import Me from '@/components/Me'
 
 export default {
   name: 'Characters',

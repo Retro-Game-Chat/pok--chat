@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import Character from '@/components/Character.vue'
+import Character from '@/components/Character'
 // import UserService from '@/services/User'
 
 const move = {
