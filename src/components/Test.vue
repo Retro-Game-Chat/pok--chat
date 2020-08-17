@@ -1,6 +1,6 @@
 <template>
   <div class="PokéBox CharacterCustomisation">
-    <div class="w-1/3 h-auto my-auto" style="zoom:250%">
+    <div class="w-1/3 h-auto my-auto">
       <div class="m-auto overflow-y-visible" :style="`width: 1rem; height: 1rem; background: no-repeat url('/artwork/gif/body/${body}.gif') 0rem 0rem`">
         <div :style="`width: 1rem; height: 1rem; background: no-repeat url('/artwork/gif/torso/${torso}.gif') 0rem 0rem`">
           <div :style="`width: 1rem; height: 1rem; background: no-repeat url('/artwork/gif/legs/${legs}.gif') 0rem 0rem`">
@@ -15,10 +15,8 @@
           </div>
         </div>
       </div>
-      <div class="mx-auto mt-2 w-4 h-4 border">
-        <svg>
-          <use xlink:href="/artwork/svg/Down.svg" />
-        </svg>
+      <div class="mx-auto mt-2 w-4 h-4">
+        <Down />
       </div>
     </div>
     <div class="w-2/3 text-right">
@@ -157,6 +155,8 @@
 </template>
 
 <script>
+import Down from '@/components/CharacterParts/Body/Down'
+
 const bodies = {
   1: {
     color: '#ffdc5d'
@@ -182,6 +182,10 @@ console.log(bodies)
 
 export default {
   name: 'Test',
+
+  components: {
+    Down
+  },
 
   data() {
     return {
