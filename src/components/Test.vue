@@ -15,6 +15,11 @@
           </div>
         </div>
       </div>
+      <div class="mx-auto mt-2 w-4 h-4 border">
+        <svg>
+          <use xlink:href="/artwork/svg/Down.svg" />
+        </svg>
+      </div>
     </div>
     <div class="w-2/3 text-right">
       <div class="py-2 leading-8">
@@ -152,6 +157,29 @@
 </template>
 
 <script>
+const bodies = {
+  1: {
+    color: '#ffdc5d'
+  },
+  2: {
+    color: '#7c533e'
+  },
+  3: {
+    color: '#af7e57'
+  },
+  4: {
+    color: '#d5ab88'
+  },
+  5: {
+    color: '#f3d2a2'
+  },
+  6: {
+    color: '#f7dece'
+  },
+}
+
+console.log(bodies)
+
 export default {
   name: 'Test',
 
